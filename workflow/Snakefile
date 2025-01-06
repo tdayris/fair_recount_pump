@@ -1,0 +1,8 @@
+include: "rules/common.smk"
+include: "rules/align.smk"
+include: "rules/bamcount.smk"
+include: "rules/extract_jx.smk"
+include: "rules/fastq_check.smk"
+include: "rules/feature_count.smk"
+include: "rules/sort.smk"
+

@@ -1,0 +1,6 @@
+# This file may be used to create an environment using:
+# $ conda create --name <env> --file <this file>
+# platform: linux-64
+# created-by: conda 24.11.0
+@EXPLICIT
+https://conda.anaconda.org/conda-forge/linux-64/zstd-1.3.3-1.tar.bz2#69a7452e3fa727263b15077a70e46644

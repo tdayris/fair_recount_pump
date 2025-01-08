@@ -2,8 +2,8 @@ rule regtools_junction_extract:
     input:
         bam="tmp/sort/samtools_sort/{sample}.bam",
         bai="tmp/sort/samtools_sort/{sample}.bam.bai",
-        fa="/mnt/beegfs/database/bioinfo/monorail-external/hg38/fasta/genome.fa",
-        gtf="/mnt/beegfs/database/bioinfo/monorail-external/hg38/gtf/genes.gtf",
+        fa=config["fasta"],
+        gtf=config["gtf"],
     output:
         temp("tmp/extract_jx/regtools_junction_extract/{sample}.jx_tmp"),
     threads: 1
@@ -16,7 +16,7 @@ rule regtools_junction_extract:
     params:
         "-i 20 -a 1",
     conda:
-        "../envs/regtools.yaml",
+        "../envs/regtools.yaml"
     shell:
         "regtools junctions extract {params} "
         "-o {output} {input} "
@@ -34,9 +34,9 @@ rule zstd_regtools_junctions:
         runtime=lambda wildcards, attempt: attempt * 45,
         tmpdir="tmp",
     log:
-        "logs/extract_jx/zstd_regtools_junctions/{sample}.log"
+        "logs/extract_jx/zstd_regtools_junctions/{sample}.log",
     params:
-        "-c"
+        "-c",
     conda:
         "../envs/zstd.yaml"
     shell:

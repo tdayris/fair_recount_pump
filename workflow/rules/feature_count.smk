@@ -2,9 +2,11 @@ rule exon_fc_count_unique:
     input:
         bam="tmp/sort/samtools_sort/{sample}.bam",
         bai="tmp/sort/samtools_sort/{sample}.bam.bai",
-        gtf="/mnt/beegfs/database/bioinfo/monorail-external/hg38/gtf/genes.gtf",
+        gtf=config["gtf"],
     output:
-        tsv=temp("tmp/feature_count/exon_fc_count_unique/{sample}.exon_fc_count_unique.tsv"),
+        tsv=temp(
+            "tmp/feature_count/exon_fc_count_unique/{sample}.exon_fc_count_unique.tsv"
+        ),
         summary="results/{sample}/{sample}.exon_fc_count_unique.summary",
     threads: 10
     resources:
@@ -33,7 +35,9 @@ rule exon_fc_count_unique:
 
 use rule exon_fc_count_unique as exon_fc_count_all with:
     output:
-        tsv=temp("tmp/feature_count/exon_fc_count_unique/{sample}.exon_fc_count_all.tsv"),
+        tsv=temp(
+            "tmp/feature_count/exon_fc_count_unique/{sample}.exon_fc_count_all.tsv"
+        ),
         summary="results/{sample}/{sample}.exon_fc_count_all.summary",
     params:
         fc="-O -f -p",
@@ -44,7 +48,9 @@ use rule exon_fc_count_unique as exon_fc_count_all with:
 
 use rule exon_fc_count_unique as gene_fc_count_unique with:
     output:
-        tsv=temp("tmp/feature_count/exon_fc_count_unique/{sample}.gene_fc_count_unique.tsv"),
+        tsv=temp(
+            "tmp/feature_count/exon_fc_count_unique/{sample}.gene_fc_count_unique.tsv"
+        ),
         summary="results/{sample}/{sample}.gene_fc_count_unique.summary",
     params:
         fc="-M --primary -Q 10 -p",
@@ -55,7 +61,9 @@ use rule exon_fc_count_unique as gene_fc_count_unique with:
 
 use rule exon_fc_count_unique as gene_fc_count_all with:
     output:
-        tsv=temp("tmp/feature_count/exon_fc_count_unique/{sample}.gene_fc_count_all.tsv"),
+        tsv=temp(
+            "tmp/feature_count/exon_fc_count_unique/{sample}.gene_fc_count_all.tsv"
+        ),
         summary="results/{sample}/{sample}.gene_fc_count_all.summary",
     params:
         fc="-M --primary -p",
@@ -68,14 +76,16 @@ rule awk_remove_header_gene_id:
     input:
         "tmp/feature_count/exon_fc_count_unique/{sample}.{gene_exon}_fc_count_{unique_all}.tsv",
     output:
-        temp("tmp/feature_count/awk_remove_header_gene_id/{sample}.{gene_exon}_fc_count_{unique_all}.tsv"),
+        temp(
+            "tmp/feature_count/awk_remove_header_gene_id/{sample}.{gene_exon}_fc_count_{unique_all}.tsv"
+        ),
     threads: 1
     resources:
         mem_mb=lambda wildcards, attempt: attempt * 1_000,
         runtime=lambda wildcards, attempt: attempt * 20,
         tmpdir="tmp",
     log:
-        "logs/feature_count/awk_remove_header_gene_id/{sample}.{gene_exon}.{unique_all}.log"
+        "logs/feature_count/awk_remove_header_gene_id/{sample}.{gene_exon}.{unique_all}.log",
     params:
         v="-v OFS='\\t'",
         main="'$1 !~ /^#/ && $1 !~ /^Geneid/ && $NF != 0 {{print \"{wildcards.sample}\",$0}}'",
@@ -96,9 +106,9 @@ rule compress_feature_counts:
         runtime=lambda wildcards, attempt: attempt * 45,
         tmpdir="tmp",
     log:
-        "logs/feature_count/compress_feature_counts/{sample}.log"
+        "logs/feature_count/compress_feature_counts/{sample}.log",
     params:
-        "-c"
+        "-c",
     conda:
         "../envs/zstd.yaml"
     shell:

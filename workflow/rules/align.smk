@@ -2,7 +2,7 @@ rule star_align:
     input:
         r1="tmp/fair_fastqc_multiqc_link_or_concat_pair_ended_input/{sample}.1.fastq.gz",
         r2="tmp/fair_fastqc_multiqc_link_or_concat_pair_ended_input/{sample}.2.fastq.gz",
-        index="/mnt/beegfs/database/bioinfo/monorail-external/hg38/star_idx",
+        index=config["star_index"],
     output:
         bam=temp("tmp/align/star_align/{sample}/Aligned.out.bam"),
         junc=temp("tmp/align/star_align/{sample}/Chimeric.out.junction"),
@@ -34,7 +34,7 @@ rule star_align:
         "--chimJunctionOverhangMin 12 "
         " --chimSegmentMin 12 "
         "--genomeLoad NoSharedMemory "
-        "--readFilesCommand gunzip -c "
+        "--readFilesCommand gunzip -c ",
     conda:
         "../envs/star.yaml"
     shell:
@@ -89,6 +89,7 @@ rule sort_chimeric_junctions:
     shell:
         "sort {params} {input} > {output} 2> {log}"
 
+
 rule zdst_chimeric_junctions:
     input:
         "tmp/align/star_align/{sample}/Chimeric.out.junction.sorted",
@@ -100,9 +101,9 @@ rule zdst_chimeric_junctions:
         runtime=lambda wildcards, attempt: attempt * 45,
         tmpdir="tmp",
     log:
-        "logs/zdst_chimeric_junctions/{sample}.log"
+        "logs/zdst_chimeric_junctions/{sample}.log",
     params:
-        "-c"
+        "-c",
     conda:
         "../envs/zstd.yaml"
     shell:
@@ -121,10 +122,10 @@ rule zdst_chimeric_sam:
         runtime=lambda wildcards, attempt: attempt * 45,
         tmpdir="tmp",
     log:
-        "logs/zdst_chimeric_sam/{sample}.log"
+        "logs/zdst_chimeric_sam/{sample}.log",
     params:
         wc="-c",
-        test="-s"
+        test="-s",
     conda:
         "../envs/zstd.yaml"
     shell:

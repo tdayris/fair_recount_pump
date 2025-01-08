@@ -2,34 +2,31 @@ rule bamcount:
     input:
         bam="tmp/sort/samtools_sort/{sample}.bam",
         bai="tmp/sort/samtools_sort/{sample}.bam.bai",
-        bed="/mnt/beegfs/database/bioinfo/monorail-external/hg38/gtf/exons.bed",
-        exe="/mnt/beegfs/database/bioinfo/monorail-external/bamcount"
+        bed=config["bed"],
+        exe=config["bamcount"],
     output:
-        temp(multiext(
-            "tmp/bamcount/bamcount/{sample}",
-            ".alts.tsv",
-            ".auc.tsv",
-            ".frags.tsv",
-            ".all.bw",
-            ".unique.bw",
-            ".jxs.tsv",
-            ".all.tsv",
-            ".unique.tsv",
-        )),
+        temp(
+            multiext(
+                "tmp/bamcount/bamcount/{sample}",
+                ".alts.tsv",
+                ".auc.tsv",
+                ".frags.tsv",
+                ".all.bw",
+                ".unique.bw",
+                ".jxs.tsv",
+                ".all.tsv",
+                ".unique.tsv",
+            )
+        ),
     threads: 10
     resources:
         mem_mb=lambda wildcards, attempt: attempt * 6_000,
         runtime=lambda wildcards, attempt: attempt * 30,
         tmpdir="tmp",
     log:
-        "logs/bamcount/bamcount/{sample}.log"
+        "logs/bamcount/bamcount/{sample}.log",
     params:
-        extra=(
-            "--coverage "
-            "--no-head "
-            "--require-mdz "
-            " --min-unique-qual 10 "
-        ),
+        extra=("--coverage " "--no-head " "--require-mdz " " --min-unique-qual 10 "),
         prefix=lambda wildcards, output: os.path.commonpath(list(map(str, output))),
     conda:
         "../envs/samtools.smk"

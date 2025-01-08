@@ -17,6 +17,7 @@ rule seqtk_fqchk:
     shell:
         "seqtk fqchk {params} {input} > {output} 2> {log}"
 
+
 rule aggregate_seqtk_fqchk:
     input:
         expand(
@@ -34,7 +35,7 @@ rule aggregate_seqtk_fqchk:
     log:
         "logs/aggregate_seqtk_fqchk.log",
     params:
-        "-c"
+        "-c",
     conda:
         "../envs/bash.yaml"
     shell:

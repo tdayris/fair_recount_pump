@@ -1,0 +1,2 @@
+sample_id,upstream_file,downstream_file
+sample1,/path/to/read1.fastq.gz,/path/to/read2.fastq.gz

@@ -1,0 +1,19 @@
+# This file may be used to create an environment using:
+# $ conda create --name <env> --file <this file>
+# platform: linux-64
+# created-by: conda 24.11.0
+@EXPLICIT
+https://conda.anaconda.org/conda-forge/linux-64/_libgcc_mutex-0.1-conda_forge.tar.bz2#d7c89558ba9fa0495403155b64376d81
+https://conda.anaconda.org/conda-forge/linux-64/libgomp-14.2.0-h77fa898_1.conda#cc3573974587f12dda90d96e3e55a702
+https://conda.anaconda.org/conda-forge/linux-64/_openmp_mutex-4.5-2_gnu.tar.bz2#73aaf86a425cc6e73fcf236a5a46396d
+https://conda.anaconda.org/conda-forge/linux-64/libgcc-14.2.0-h77fa898_1.conda#3cb76c3f10d3bc7f1105b2fc9db984df
+https://conda.anaconda.org/conda-forge/linux-64/libgcc-ng-14.2.0-h69a702a_1.conda#e39480b9ca41323497b05492a63bc35b
+https://conda.anaconda.org/conda-forge/linux-64/libstdcxx-14.2.0-hc0a3c3a_1.conda#234a5554c53625688d51062645337328
+https://conda.anaconda.org/conda-forge/linux-64/ncurses-6.5-h2d0b736_3.conda#47e340acb35de30501a76c7c799c41d7
+https://conda.anaconda.org/conda-forge/linux-64/libgettextpo-0.22.5-he02047a_3.conda#efab66b82ec976930b96d62a976de8e7
+https://conda.anaconda.org/conda-forge/linux-64/libstdcxx-ng-14.2.0-h4852527_1.conda#8371ac6457591af2cf6159439c1fd051
+https://conda.anaconda.org/conda-forge/linux-64/readline-8.2-h8228510_1.conda#47d31b792659ce70f470b5c82fdfb7a4
+https://conda.anaconda.org/conda-forge/linux-64/gmp-6.3.0-hac33072_2.conda#c94a5994ef49749880a8139cf9afcbe1
+https://conda.anaconda.org/conda-forge/linux-64/libasprintf-0.22.5-he8f35ee_3.conda#4fab9799da9571266d05ca5503330655
+https://conda.anaconda.org/conda-forge/linux-64/mpfr-4.2.1-h90cbb55_3.conda#2eeb50cab6652538eee8fc0bc3340c81
+https://conda.anaconda.org/conda-forge/linux-64/gawk-5.3.1-hcd3d067_0.conda#91d4414ab699180b2b0b10b8112c5a2f

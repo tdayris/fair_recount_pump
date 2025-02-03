@@ -17,14 +17,14 @@ stream_tpl: tuple[str] = (
     "2",
 )
 bamcount_content_tpl: tuple[str] = (
-    ".alts",
-    ".auc",
-    ".frags",
-    ".all",
-    ".unique",
-    ".jxs",
-    ".all",
-    ".unique",
+    "alts",
+    "auc",
+    "frags",
+    "all",
+    "unique",
+    "jxs",
+    "all",
+    "unique",
 )
 gene_exon_tpl: tuple[str, ...] = (
     "gene",

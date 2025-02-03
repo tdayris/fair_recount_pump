@@ -11,7 +11,7 @@ rule get_bamcount:
     params:
         extra="-q 'https://github.com/ChristopherWilks/bamcount/releases/download/0.4.0/bamcount_static'",
     shell:
-        "wget {params.extra} -O {output} > {log} 2>&1 "
+        "wget {params.extra} -O {output} > {log} 2>&1 && chmod u+x bamcount"
 
 
 rule bamcount:

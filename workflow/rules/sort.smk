@@ -14,7 +14,7 @@ rule samtools_sort:
         samtools="-m 64M",
         wc="-c",
     conda:
-        "../samtools.yaml"
+        "../envs/samtools.yaml"
     shell:
         "samtools sort {params.samtools} "
         "-T {resources.tmp}/samtools_temp_{sample} "

@@ -68,3 +68,7 @@ wildcard_constraints:
     samples=r"|".join(samples_tpl),
     stream=r"|".join(stream_tpl),
     content=r"|".join(bamcount_content_tpl),
+
+
+def get_targets():
+    return expected_results

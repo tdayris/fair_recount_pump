@@ -10,4 +10,4 @@ include: "rules/sort.smk"
 
 rule target:
     input:
-        **get_targets(config["samples"]),
+        **get_targets(),

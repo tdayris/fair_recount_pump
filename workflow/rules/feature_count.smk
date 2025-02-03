@@ -20,7 +20,7 @@ rule exon_fc_count_unique:
         fc="-Q 10 -O -f -p",
         mv="-v",
     conda:
-        "../envs/feature_count.yaml"
+        "../envs/subread.yaml"
     log:
         "logs/feature_count/exon_fc_count_unique/{sample}.log",
     shell:

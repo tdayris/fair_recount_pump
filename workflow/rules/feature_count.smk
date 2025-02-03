@@ -2,7 +2,7 @@ rule exon_fc_count_unique:
     input:
         bam="tmp/sort/samtools_sort/{sample}.bam",
         bai="tmp/sort/samtools_sort/{sample}.bam.bai",
-        gtf=config(
+        gtf=config.get(
             "gtf",
             "/mnt/beegfs/database/bioinfo/Index_DB/Fasta/Ensembl/GRCh38.99/GRCh38.99.homo_sapiens.gtf",
         ),

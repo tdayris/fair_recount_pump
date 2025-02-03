@@ -69,7 +69,7 @@ wildcard_constraints:
     stream=r"|".join(stream_tpl),
     content=r"|".join(bamcount_content_tpl),
     unique_all=r"|".join(unique_all_tpl),
-    gene_exon=r"|".join(gene_exon),
+    gene_exon=r"|".join(gene_exon_tpl),
 
 
 def get_targets():

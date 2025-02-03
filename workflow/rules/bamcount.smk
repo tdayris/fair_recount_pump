@@ -5,7 +5,7 @@ rule get_bamcount:
     resources:
         mem_mb=lambda wildcards, attempt: attempt * 1_000,
         runtime=lambda wildcards, attempt: attempt * 15,
-        tmpdir=tmp,
+        tmpdir="tmp",
     log:
         "logs/get_bamcount.log",
     params:

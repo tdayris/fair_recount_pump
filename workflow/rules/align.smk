@@ -45,7 +45,7 @@ rule star_align:
         "--runThreadN {threads} "
         "--genomeDir {input.index} "
         "--readFilesIn {input.r1} {input.r2} "
-        "--outTmpDir {resources.tmp} "
+        "--outTmpDir {resources.tmpdir} "
         "> {log} 2>&1 && "
         "cat {output.log_final} >> {log} 2>&1 "
 

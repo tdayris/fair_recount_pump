@@ -102,14 +102,14 @@ rule compress_feature_counts:
     input:
         "tmp/feature_count/awk_remove_header_gene_id/{sample}.{gene_exon}_fc_count_{unique_all}.tsv",
     output:
-        "results/{sample}/{sample}.{gene_exon}_fc_count_{uniq_all}.tsv.zst",
+        "results/{sample}/{sample}.{gene_exon}_fc_count_{unique_all}.tsv.zst",
     threads: 1
     resources:
         mem_mb=lambda wildcards, attempt: attempt * 1_000,
         runtime=lambda wildcards, attempt: attempt * 45,
         tmpdir="tmp",
     log:
-        "logs/feature_count/compress_feature_counts/{sample}.{gene_exon}.{uniq_all}.log",
+        "logs/feature_count/compress_feature_counts/{sample}.{gene_exon}.{unique_all}.log",
     params:
         "-c",
     conda:

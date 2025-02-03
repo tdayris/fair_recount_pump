@@ -6,7 +6,7 @@ configfile: "config/config.yaml"
 
 
 samples: pandas.DataFrame = pandas.read_csv(
-    config.get("samples", "config/samples.csv")
+    config.get("samples", "config/samples.csv"),
     sep=",",
     header=0,
     index_col=None,

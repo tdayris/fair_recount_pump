@@ -26,6 +26,14 @@ bamcount_content_tpl: tuple[str] = (
     ".all",
     ".unique",
 )
+gene_exon_tpl: tuple[str, ...] = (
+    "gene",
+    "exon",
+)
+uniq_all_tpl: tuple[str, ...] = (
+    "unique",
+    "all",
+)
 
 junctions: list[str] = []
 bamcount: list[str] = []

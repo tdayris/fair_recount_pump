@@ -45,12 +45,12 @@ for sample in samples_tpl:
     junctions.append(f"results/{sample}/{sample}.jx_bed.zst")
 
     for content in bamcount_content_tpl:
-        bamcount.append(f"result/{sample}/{sample}.{content}.tsv.zst")
+        bamcount.append(f"results/{sample}/{sample}.{content}.tsv.zst")
 
     for gene_exon in gene_exon_tpl:
         for unique_all in unique_all_tpl:
             featurecount.append(
-                f"results/{sample}/{sample}.{gene_exon}_fc_count_{unique_all}.tsv.zst"
+                d"results/{sample}/{sample}.{gene_exon}_fc_count_{unique_all}.tsv.zst",
             )
 
     mapping.append(f"results/{sample}/{sample}.cram")

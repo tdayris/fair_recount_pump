@@ -109,7 +109,7 @@ rule compress_feature_counts:
         runtime=lambda wildcards, attempt: attempt * 45,
         tmpdir="tmp",
     log:
-        "logs/feature_count/compress_feature_counts/{sample}.{gene_exon}.{unique_all}.log",
+        "logs/feature_count/compress_feature_counts/{sample}.{gene_exon}_{unique_all}.log",
     params:
         "-c",
     conda:

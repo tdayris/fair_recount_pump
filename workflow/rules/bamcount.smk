@@ -65,6 +65,6 @@ use rule zdst_chimeric_junctions as zdst_bamcount with:
     input:
         "tmp/bamcount/bamcount/{sample}.{content}.tsv",
     output:
-        "result/{sample}/{sample}.{content}.tsv.zst",
+        "results/{sample}/{sample}.{content}.tsv.zst",
     log:
         "logs/bamcount/zdst_bamcount/{sample}.{content}.log",

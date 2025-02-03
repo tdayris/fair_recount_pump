@@ -22,8 +22,8 @@ rule aggregate_seqtk_fqchk:
     input:
         expand(
             "tmp/fastq_check/seqtk_fqchk/{sample}.{stream}.tsv",
-            sample=samples_tuple,
-            stream=stream_tuple,
+            sample=samples_tpl,
+            stream=stream_tpl,
         ),
     output:
         "results/seqtk_fqchk.tsv",

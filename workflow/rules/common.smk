@@ -50,7 +50,7 @@ for sample in samples_tpl:
     for gene_exon in gene_exon_tpl:
         for unique_all in unique_all_tpl:
             featurecount.append(
-                d"results/{sample}/{sample}.{gene_exon}_fc_count_{unique_all}.tsv.zst",
+                f"results/{sample}/{sample}.{gene_exon}_fc_count_{unique_all}.tsv.zst"
             )
 
     mapping.append(f"results/{sample}/{sample}.cram")

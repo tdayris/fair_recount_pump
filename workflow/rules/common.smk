@@ -4,6 +4,7 @@ import pandas
 
 configfile: "config/config.yaml"
 
+
 samples: pandas.DataFrame = pandas.read_csv(
     config["samples"],
     sep=",",
@@ -46,13 +47,14 @@ for sample in samples_tpl:
 
     mapping.append(f"results/{sample}/{sample}.cram")
 
-expected_results: dict[str, list[str] = {
+expected_results: dict[str, list[str]] = {
     "junctions": junctions,
     "bamcount": bamcount,
     "fqchk": ["results/seqtk_fqchk.tsv"],
     "featurecount": featurecount,
     "mapping": mapping,
 }
+
 
 wildcard_constraints:
     samples=r"|".join(samples_tpl),

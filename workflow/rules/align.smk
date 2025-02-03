@@ -2,7 +2,7 @@ rule star_align:
     input:
         r1="tmp/fair_fastqc_multiqc_link_or_concat_pair_ended_input/{sample}.1.fastq.gz",
         r2="tmp/fair_fastqc_multiqc_link_or_concat_pair_ended_input/{sample}.2.fastq.gz",
-        index=config["star_index"],
+        index=config.get("star_index", "/mnt/beegfs/database/bioinfo/Index_DB/STAR/GRCm38/",),
     output:
         bam=temp("tmp/align/star_align/{sample}/Aligned.out.bam"),
         junc=temp("tmp/align/star_align/{sample}/Chimeric.out.junction"),

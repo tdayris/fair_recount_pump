@@ -2,8 +2,14 @@ rule regtools_junction_extract:
     input:
         bam="tmp/sort/samtools_sort/{sample}.bam",
         bai="tmp/sort/samtools_sort/{sample}.bam.bai",
-        fa=config["fasta"],
-        gtf=config["gtf"],
+        fa=config.get(
+            "fasta",
+            "/mnt/beegfs/database/bioinfo/Index_DB/Fasta/Ensembl/GRCh38.99/GRCh38.99.homo_sapiens.dna.fasta",
+        ),
+        gtf=config.get(
+            "gtf",
+            "/mnt/beegfs/database/bioinfo/Index_DB/Fasta/Ensembl/GRCh38.99/GRCh38.99.homo_sapiens.gtf",
+        ),
     output:
         temp("tmp/extract_jx/regtools_junction_extract/{sample}.jx_tmp"),
     threads: 1

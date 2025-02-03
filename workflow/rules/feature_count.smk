@@ -2,7 +2,10 @@ rule exon_fc_count_unique:
     input:
         bam="tmp/sort/samtools_sort/{sample}.bam",
         bai="tmp/sort/samtools_sort/{sample}.bam.bai",
-        gtf=config["gtf"],
+        gtf=config(
+            "gtf",
+            "/mnt/beegfs/database/bioinfo/Index_DB/Fasta/Ensembl/GRCh38.99/GRCh38.99.homo_sapiens.gtf",
+        ),
     output:
         tsv=temp(
             "tmp/feature_count/exon_fc_count_unique/{sample}.exon_fc_count_unique.tsv"

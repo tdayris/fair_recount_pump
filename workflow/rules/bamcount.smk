@@ -1,9 +1,28 @@
+rule get_bamcount:
+    output:
+        "bamcount",
+    threads: 1
+    resources:
+        mem_mb=lambda wildcards, attempt: attempt * 1_000,
+        runtime=lambda wildcards, attempt: attempt * 15,
+        tmpdir=tmp,
+    log:
+        "logs/get_bamcount.log",
+    params:
+        extra="-q 'https://github.com/ChristopherWilks/bamcount/releases/download/0.4.0/bamcount_static'",
+    shell:
+        "wget {params.extra} -O {output} > {log} 2>&1 "
+
+
 rule bamcount:
     input:
         bam="tmp/sort/samtools_sort/{sample}.bam",
         bai="tmp/sort/samtools_sort/{sample}.bam.bai",
-        bed=config["bed"],
-        exe=config["bamcount"],
+        bed=config.get(
+            "bed",
+            "/mnt/beegfs/database/bioinfo/Index_DB/captureKitDesigns/hg38/SureSelect_v6.padded.merged.sorted_hg38.bed",
+        ),
+        exe=config.get("bamcount", "bamcount"),
     output:
         temp(
             multiext(

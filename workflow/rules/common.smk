@@ -65,7 +65,7 @@ expected_results: dict[str, list[str]] = {
 
 
 wildcard_constraints:
-    samples=r"|".join(samples_tpl),
+    sample=r"|".join(samples_tpl),
     stream=r"|".join(stream_tpl),
     content=r"|".join(bamcount_content_tpl),
     unique_all=r"|".join(unique_all_tpl),

@@ -4,7 +4,7 @@ rule star_align:
         r2="tmp/fair_fastqc_multiqc_link_or_concat_pair_ended_input/{sample}.2.fastq.gz",
         index=config.get(
             "star_index",
-            "/mnt/beegfs/database/bioinfo/Index_DB/STAR/GRCm38/",
+            "/mnt/beegfs/database/bioinfo/monorail-external/hg38/star_idx",
         ),
     output:
         bam=temp("tmp/align/star_align/{sample}/Aligned.out.bam"),

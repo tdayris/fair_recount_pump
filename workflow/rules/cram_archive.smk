@@ -4,7 +4,7 @@ rule cram_mapped_reads:
         bai="tmp/sort/samtools_sort/{sample}.bam.bai",
         ref=config.get(
             "fasta",
-            "/mnt/beegfs/database/bioinfo/Index_DB/Fasta/Ensembl/GRCh38.99/GRCh38.99.homo_sapiens.dna.fasta",
+            "/mnt/beegfs/database/bioinfo/monorail-external/hg38/fasta/genome.fa",
         ),
     output:
         "results/{sample}/{sample}.cram",

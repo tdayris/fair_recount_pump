@@ -4,7 +4,7 @@ rule exon_fc_count_unique:
         bai="tmp/sort/samtools_sort/{sample}.bam.bai",
         gtf=config.get(
             "gtf",
-            "/mnt/beegfs/database/bioinfo/Index_DB/Fasta/Ensembl/GRCh38.99/GRCh38.99.homo_sapiens.gtf",
+            "/mnt/beegfs/database/bioinfo/monorail-external/hg38/gtf/gencode.v26.chr_patch_hapl_scaff.annotation.subset.gtf",
         ),
     output:
         tsv=temp(

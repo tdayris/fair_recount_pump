@@ -20,7 +20,7 @@ rule bamcount:
         bai="tmp/sort/samtools_sort/{sample}.bam.bai",
         bed=config.get(
             "bed",
-            "/mnt/beegfs/database/bioinfo/Index_DB/captureKitDesigns/hg38/SureSelect_v6.padded.merged.sorted_hg38.bed",
+            "/mnt/beegfs/database/bioinfo/monorail-external/hg38/gtf/g26_g29_f6_r109_ercc_sirv.disjoint-exons.2019-09-24.w_introns.sorted.bed",
         ),
         exe=config.get("bamcount", "bamcount"),
     output:

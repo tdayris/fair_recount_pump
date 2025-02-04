@@ -4,11 +4,11 @@ rule regtools_junction_extract:
         bai="tmp/sort/samtools_sort/{sample}.bam.bai",
         fa=config.get(
             "fasta",
-            "/mnt/beegfs/database/bioinfo/Index_DB/Fasta/Ensembl/GRCh38.99/GRCh38.99.homo_sapiens.dna.fasta",
+            "/mnt/beegfs/database/bioinfo/monorail-external/hg38/fasta/genome.fa",
         ),
         gtf=config.get(
             "gtf",
-            "/mnt/beegfs/database/bioinfo/Index_DB/Fasta/Ensembl/GRCh38.99/GRCh38.99.homo_sapiens.gtf",
+            "/mnt/beegfs/database/bioinfo/monorail-external/hg38/gtf/gencode.v26.chr_patch_hapl_scaff.annotation.subset.gtf",
         ),
     output:
         temp("tmp/extract_jx/regtools_junction_extract/{sample}.jx_tmp"),

@@ -25,7 +25,7 @@ rule regtools_junction_extract:
         "../envs/regtools.yaml"
     shell:
         "regtools junctions extract {params} "
-        "-o {output} {input} "
+        "-o {output} {input.bam} "
         "> {log} 2>&1 "
 
 

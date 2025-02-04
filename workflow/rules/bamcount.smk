@@ -50,7 +50,9 @@ rule bamcount:
     conda:
         "../envs/samtools.smk"
     shell:
-        "./{input.exe} {params.extra} "
+        "./{input.exe} "
+        "{input.bam} "
+        "{params.extra} "
         "--threads {threads} "
         "--frag-dist {params.prefix} "
         "--bigwig {params.prefix} "

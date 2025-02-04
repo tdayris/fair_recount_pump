@@ -24,6 +24,7 @@ rule exon_fc_count_unique:
     log:
         "logs/feature_count/exon_fc_count_unique/{sample}.log",
     shell:
+        "mkdir -pv $(dirname '{output.tsv}') && "
         "featureCounts {params.fc} "
         "-T {threads} "
         "-a {input.gtf} "

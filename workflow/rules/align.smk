@@ -132,6 +132,6 @@ rule zdst_chimeric_sam:
     conda:
         "../envs/zstd.yaml"
     shell:
-        "test -s {input} > {log} 2>&1"
+        "test -s {input} > {log} 2>&1 "
         "zstd {input} -o {output} >> {log} 2>&1 && "
         "wc {params} >> {log} 2>&1 "

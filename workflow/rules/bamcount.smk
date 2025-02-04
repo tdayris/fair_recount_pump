@@ -48,7 +48,7 @@ rule bamcount:
         extra=("--coverage " "--no-head " "--require-mdz " " --min-unique-qual 10 "),
         prefix=lambda wildcards, output: os.path.commonpath(list(map(str, output))),
     conda:
-        "../envs/samtools.smk"
+        "../envs/samtools.yaml"
     shell:
         "./{input.exe} "
         "{input.bam} "

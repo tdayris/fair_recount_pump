@@ -45,7 +45,8 @@ rule star_align:
         "--runThreadN {threads} "
         "--genomeDir {input.index} "
         "--readFilesIn {input.r1} {input.r2} "
-        "--outTmpDir '{resources.tmpdir}/star_tmp_{wildcards.sample}' "
+        "--outTmpDir 'tmp/star_tmp_{wildcards.sample}' "
+        "--outFileNamePrefix 'tmp/align/star_align/{wildcards.sample}' "
         "> {log} 2>&1 "
 
 

@@ -46,8 +46,7 @@ rule star_align:
         "--genomeDir {input.index} "
         "--readFilesIn {input.r1} {input.r2} "
         "--outTmpDir '{resources.tmpdir}/star_tmp_{wildcards.sample}' "
-        "> {log} 2>&1 && "
-        "cat {output.log_final} >> {log} 2>&1 "
+        "> {log} 2>&1 "
 
 
 rule zstd_junctions_tab:

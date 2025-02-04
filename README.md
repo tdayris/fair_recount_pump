@@ -7,8 +7,9 @@ requirements.
 
 ## Run pipeline
 
-1. Create `samples.csv` file
-2. Run Snakemake command:
+1. Create `config/samples.csv` file
+2. Create `config/config.yaml` with optional configuration (or let it empty to run all defaults)
+3. Run Snakemake command:
 
 ```sh
 snakemake   --cores 30   \

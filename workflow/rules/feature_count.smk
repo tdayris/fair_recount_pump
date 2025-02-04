@@ -115,5 +115,4 @@ rule compress_feature_counts:
     conda:
         "../envs/zstd.yaml"
     shell:
-        "zstd {input} -o {output} > {log} 2>&1 && "
-        "wc {params} {input} >> {log} 2>&1"
+        "zstd {input} -o {output} > {log} 2>&1 "

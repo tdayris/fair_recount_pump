@@ -39,5 +39,4 @@ rule aggregate_seqtk_fqchk:
     conda:
         "../envs/bash.yaml"
     shell:
-        "cat {input} > {output} 2> {log} && "
-        "wc {params} {output} >> {log} 2>&1 "
+        "cat {input} > {output} 2> {log} "

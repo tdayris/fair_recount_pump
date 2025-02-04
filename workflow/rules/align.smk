@@ -68,9 +68,7 @@ rule zstd_junctions_tab:
     conda:
         "../envs/zstd.yaml"
     shell:
-        "test {params.test} {input} > {log} 2>&1 && "
-        "zstd {input} -o {output} >> {log} 2>&1 && "
-        "wc {params.wc} {output} >> {log} 2>&1"
+        "zstd {input} -o {output} >> {log} 2>&1 "
 
 
 rule sort_chimeric_junctions:
@@ -110,8 +108,7 @@ rule zdst_chimeric_junctions:
     conda:
         "../envs/zstd.yaml"
     shell:
-        "zstd {input} -o {output} > {log} 2>&1 && "
-        "wc {params} >> {log} 2>&1 "
+        "zstd {input} -o {output} > {log} 2>&1 "
 
 
 rule zdst_chimeric_sam:
@@ -132,6 +129,4 @@ rule zdst_chimeric_sam:
     conda:
         "../envs/zstd.yaml"
     shell:
-        "test -s {input} > {log} 2>&1 "
-        "zstd {input} -o {output} >> {log} 2>&1 && "
-        "wc {params} >> {log} 2>&1 "
+        "zstd {input} -o {output} >> {log} 2>&1 "

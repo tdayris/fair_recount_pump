@@ -61,5 +61,4 @@ rule samtools_idxstats:
     conda:
         "../envs/samtools.smk"
     shell:
-        "samtools idxstats {input} > {output} 2> {log} && "
-        "wc {params} {output} >> {log} 2>&1 "
+        "samtools idxstats {input} > {output} 2> {log} "

@@ -20,21 +20,22 @@ rule exon_fc_count_unique:
         fc="-Q 10 -O -f -p",
         mv="--verbose",
         mk="--parents --verbose",
+        prefix=lambda wildcards, output: op.dirname(output.tsv),
     conda:
         "../envs/subread.yaml"
     log:
         "logs/feature_count/exon_fc_count_unique/{sample}.log",
     shell:
-        "mkdir {params.mk} $(dirname '{output.tsv}') > {log} 2>&1 && "
+        "mkdir {params.mk} '{params.prefix}' > {log} 2>&1 && "
         "featureCounts {params.fc} "
         "-T {threads} "
-        "-a {input.gtf} "
-        "-o {output.tsv} "
-        "{input.bam} "
+        "-a '{input.gtf}' "
+        "-o '{output.tsv}' "
+        "'{input.bam}' "
         ">> {log} 2>&1 && "
         "mv {params.mv} "
-        "{output.tsv}.summary "
-        "{output.summary} "
+        "'{output.tsv}.summary' "
+        "'{output.summary}' "
         ">> {log} 2>&1 && "
 
 
@@ -47,6 +48,8 @@ use rule exon_fc_count_unique as exon_fc_count_all with:
     params:
         fc="-O -f -p",
         mv="-v",
+        mk="--parents --verbose",
+        prefix=lambda wildcards, output: op.dirname(output.tsv),
     log:
         "logs/feature_count/exon_fc_count_all/{sample}.log",
 
@@ -60,6 +63,8 @@ use rule exon_fc_count_unique as gene_fc_count_unique with:
     params:
         fc="-M --primary -Q 10 -p",
         mv="-v",
+        mk="--parents --verbose",
+        prefix=lambda wildcards, output: op.dirname(output.tsv),
     log:
         "logs/feature_count/gene_fc_count_unique/{sample}.log",
 
@@ -73,6 +78,8 @@ use rule exon_fc_count_unique as gene_fc_count_all with:
     params:
         fc="-M --primary -p",
         mv="-v",
+        mk="--parents --verbose",
+        prefix=lambda wildcards, output: op.dirname(output.tsv),
     log:
         "logs/feature_count/gene_fc_count_all/{sample}.log",
 

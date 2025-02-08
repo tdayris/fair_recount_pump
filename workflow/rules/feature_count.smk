@@ -49,7 +49,7 @@ use rule exon_fc_count_unique as exon_fc_count_all with:
 
 use rule exon_fc_count_unique as gene_fc_count_unique with:
     output:
-        summary temp(
+        summary=temp(
             "tmp/feature_count/exon_fc_count_unique/{sample}.gene_fc_count_unique.tsv.summary"
         ),
         tsv=temp(

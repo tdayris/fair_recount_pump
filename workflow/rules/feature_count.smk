@@ -18,19 +18,20 @@ rule exon_fc_count_unique:
         tmpdir="tmp",
     params:
         fc="-Q 10 -O -f -p",
-        mv="-v",
+        mv="--verbose",
+        mk="--parents --verbose",
     conda:
         "../envs/subread.yaml"
     log:
         "logs/feature_count/exon_fc_count_unique/{sample}.log",
     shell:
-        "mkdir -pv $(dirname '{output.tsv}') && "
+        "mkdir {params.mk} $(dirname '{output.tsv}') > {log} 2>&1 && "
         "featureCounts {params.fc} "
         "-T {threads} "
         "-a {input.gtf} "
         "-o {output.tsv} "
         "{input.bam} "
-        "> {log} 2>&1 && "
+        ">> {log} 2>&1 && "
         "mv {params.mv} "
         "{output.tsv}.summary "
         "{output.summary} "

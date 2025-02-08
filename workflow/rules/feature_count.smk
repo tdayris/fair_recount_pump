@@ -38,7 +38,7 @@ use rule exon_fc_count_unique as exon_fc_count_all with:
         tsv=temp(
             "tmp/feature_count/exon_fc_count_unique/{sample}.exon_fc_count_all.tsv"
         ),
-        tsv=temp(
+        summary=temp(
             "tmp/feature_count/exon_fc_count_unique/{sample}.exon_fc_count_all.tsv.summary"
         ),
     params:
@@ -49,11 +49,11 @@ use rule exon_fc_count_unique as exon_fc_count_all with:
 
 use rule exon_fc_count_unique as gene_fc_count_unique with:
     output:
+        summary temp(
+            "tmp/feature_count/exon_fc_count_unique/{sample}.gene_fc_count_unique.tsv.summary"
+        ),
         tsv=temp(
             "tmp/feature_count/exon_fc_count_unique/{sample}.gene_fc_count_unique.tsv"
-        ),
-        summary==temp(
-            "tmp/feature_count/exon_fc_count_unique/{sample}.gene_fc_count_unique.tsv.summary"
         ),
     params:
         fc="-M --primary -Q 10 -p",
@@ -117,6 +117,7 @@ rule compress_feature_counts:
     shell:
         "zstd {input} -o {output} > {log} 2>&1 "
 
+
 rule make_summary_available:
     input:
         "tmp/feature_count/awk_remove_header_gene_id/{sample}.{gene_exon}_fc_count_{unique_all}.tsv.summary",
@@ -130,6 +131,6 @@ rule make_summary_available:
     log:
         "logs/make_summary_available/{sample}.{gene_exon}.{unique_all}.log",
     params:
-        "--verbose"
+        "--verbose",
     shell:
         "mv {params} {input} {output} > {log} 2>&1"

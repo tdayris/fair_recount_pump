@@ -127,7 +127,7 @@ rule make_summary_available:
     resources:
         mem_mb=lambda wildcards, attempt: attempt * 1_000,
         runtime=lambda wildcards, attempt: attempt * 15,
-        tmpdir=tmp,
+        tmpdir="tmp",
     log:
         "logs/make_summary_available/{sample}.{gene_exon}.{unique_all}.log",
     params:

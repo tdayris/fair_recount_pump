@@ -46,7 +46,7 @@ rule bamcount:
         "logs/bamcount/bamcount/{sample}.log",
     params:
         extra=("--coverage " "--no-head " "--require-mdz " " --min-unique-qual 10 "),
-        prefix=lambda wildcards, output: os.path.commonprefix(list(map(str, output))),
+        prefix=lambda wildcards, output: os.path.commonprefix(list(map(str, output)))[:-1],
     conda:
         "../envs/samtools.yaml"
     shell:

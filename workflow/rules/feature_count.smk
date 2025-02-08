@@ -10,7 +10,9 @@ rule exon_fc_count_unique:
         tsv=temp(
             "tmp/feature_count/exon_fc_count_unique/{sample}.exon_fc_count_unique.tsv"
         ),
-        summary="results/{sample}/{sample}.exon_fc_count_unique.summary",
+        summary=temp(
+            "tmp/feature_count/exon_fc_count_unique/{sample}.exon_fc_count_unique.tsv.summary"
+        ),
     threads: 10
     resources:
         mem_mb=lambda wildcards, attempt: attempt * 4_000,
@@ -18,25 +20,17 @@ rule exon_fc_count_unique:
         tmpdir="tmp",
     params:
         fc="-Q 10 -O -f -p",
-        mv="--verbose",
-        mk="--parents --verbose",
-        prefix=lambda wildcards, output: os.path.dirname(output.tsv),
     conda:
         "../envs/subread.yaml"
     log:
         "logs/feature_count/exon_fc_count_unique/{sample}.log",
     shell:
-        "mkdir {params.mk} '{params.prefix}' > {log} 2>&1 && "
         "featureCounts {params.fc} "
         "-T {threads} "
         "-a '{input.gtf}' "
         "-o '{output.tsv}' "
         "'{input.bam}' "
-        ">> {log} 2>&1 && "
-        "mv {params.mv} "
-        "'{output.tsv}.summary' "
-        "'{output.summary}' "
-        ">> {log} 2>&1 && "
+        ">> {log} 2>&1"
 
 
 use rule exon_fc_count_unique as exon_fc_count_all with:
@@ -44,12 +38,11 @@ use rule exon_fc_count_unique as exon_fc_count_all with:
         tsv=temp(
             "tmp/feature_count/exon_fc_count_unique/{sample}.exon_fc_count_all.tsv"
         ),
-        summary="results/{sample}/{sample}.exon_fc_count_all.summary",
+        tsv=temp(
+            "tmp/feature_count/exon_fc_count_unique/{sample}.exon_fc_count_all.tsv.summary"
+        ),
     params:
         fc="-O -f -p",
-        mv="-v",
-        mk="--parents --verbose",
-        prefix=lambda wildcards, output: os.path.dirname(output.tsv),
     log:
         "logs/feature_count/exon_fc_count_all/{sample}.log",
 
@@ -59,12 +52,11 @@ use rule exon_fc_count_unique as gene_fc_count_unique with:
         tsv=temp(
             "tmp/feature_count/exon_fc_count_unique/{sample}.gene_fc_count_unique.tsv"
         ),
-        summary="results/{sample}/{sample}.gene_fc_count_unique.summary",
+        summary==temp(
+            "tmp/feature_count/exon_fc_count_unique/{sample}.gene_fc_count_unique.tsv.summary"
+        ),
     params:
         fc="-M --primary -Q 10 -p",
-        mv="-v",
-        mk="--parents --verbose",
-        prefix=lambda wildcards, output: os.path.dirname(output.tsv),
     log:
         "logs/feature_count/gene_fc_count_unique/{sample}.log",
 
@@ -74,12 +66,11 @@ use rule exon_fc_count_unique as gene_fc_count_all with:
         tsv=temp(
             "tmp/feature_count/exon_fc_count_unique/{sample}.gene_fc_count_all.tsv"
         ),
-        summary="results/{sample}/{sample}.gene_fc_count_all.summary",
+        summary=temp(
+            "tmp/feature_count/exon_fc_count_unique/{sample}.gene_fc_count_all.tsv.summary"
+        ),
     params:
         fc="-M --primary -p",
-        mv="-v",
-        mk="--parents --verbose",
-        prefix=lambda wildcards, output: os.path.dirname(output.tsv),
     log:
         "logs/feature_count/gene_fc_count_all/{sample}.log",
 
@@ -125,3 +116,20 @@ rule compress_feature_counts:
         "../envs/zstd.yaml"
     shell:
         "zstd {input} -o {output} > {log} 2>&1 "
+
+rule make_summary_available:
+    input:
+        "tmp/feature_count/awk_remove_header_gene_id/{sample}.{gene_exon}_fc_count_{unique_all}.tsv.summary",
+    output:
+        "results/{sample}/{sample}.{gene_exon}_fc_count_{unique_all}.summary",
+    threads: 1
+    resources:
+        mem_mb=lambda wildcards, attempt: attempt * 1_000,
+        runtime=lambda wildcards, attempt: attempt * 15,
+        tmpdir=tmp,
+    log:
+        "logs/make_summary_available/{sample}.{gene_exon}.{unique_all}.log",
+    params:
+        "--verbose"
+    shell:
+        "mv {params} {input} {output} > {log} 2>&1"

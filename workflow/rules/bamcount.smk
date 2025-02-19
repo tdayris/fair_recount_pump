@@ -20,8 +20,8 @@ rule bamcount:
         bai="tmp/sort/samtools_sort/{sample}.bam.bai",
         bed=branch(
             is_human,
-            then=getattr(lookup(query="species == 'homo_sapiens'", within=genomes), "bed",),
-            otherwise=getattr(lookup(query="species == 'mus_musculus'", within=genomes), "bed",),
+            then=genomes.loc["homo_sapiens"]["bed"],
+            otherwise=genomes.log["mus_musculus"]["bed"],
         ),
         exe=config.get("bamcount", "bamcount"),
     output:

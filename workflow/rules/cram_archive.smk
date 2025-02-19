@@ -4,8 +4,8 @@ rule cram_mapped_reads:
         bai="tmp/sort/samtools_sort/{sample}.bam.bai",
         ref=branch(
             is_human,
-            then=getattr(lookup(query="species == 'homo_sapiens'", within=genomes), "fasta",),
-            otherwise=getattr(lookup(query="species == 'mus_musculus'", within=genomes), "fasta",),
+            then=genomes["homo_sapiens"]["fasta"],
+            otherwise=genomes["mus_musculus"]["fasta"],
         ),
     output:
         "results/{sample}/{sample}.cram",

@@ -4,13 +4,13 @@ rule regtools_junction_extract:
         bai="tmp/sort/samtools_sort/{sample}.bam.bai",
         fa=branch(
             is_human,
-            then=getattr(lookup(query="species == 'homo_sapiens'", within=genomes), "fasta",),
-            otherwise=getattr(lookup(query="species == 'mus_musculus'", within=genomes), "fasta",),
+            then=genomes["homo_sapiens"]["fasta"],
+            otherwise=genomes["mus_musculus"]["fasta"],
         ),
         gtf=branch(
             is_human,
-            then=getattr(lookup(query="species == 'homo_sapiens'", within=genomes), "gtf",),
-            otherwise=getattr(lookup(query="species == 'mus_musculus'", within=genomes), "gtf",),
+            then=genomes["homo_sapiens"]["gtf"],
+            otherwise=genomes["mus_musculus"]["gtf"],
         ),
     output:
         temp("tmp/extract_jx/regtools_junction_extract/{sample}.jx_tmp"),

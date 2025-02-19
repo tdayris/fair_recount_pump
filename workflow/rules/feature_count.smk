@@ -4,8 +4,8 @@ rule exon_fc_count_unique:
         bai="tmp/sort/samtools_sort/{sample}.bam.bai",
         gtf=branch(
             is_human,
-            then=getattr(lookup(query="species == 'homo_sapiens'", within=genomes), "gtf",),
-            otherwise=getattr(lookup(query="species == 'mus_musculus'", within=genomes), "gtf",),
+            then=genomes["homo_sapiens"]["gtf"],
+            otherwise=genomes["mus_musculus"]["gtf"],
         ),
     output:
         tsv=temp(

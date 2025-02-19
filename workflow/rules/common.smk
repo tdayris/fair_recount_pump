@@ -77,6 +77,7 @@ def load_genomes(
         "Provide either a path to a genome file, or a loaded samples table"
     )
 
+genomes.index = genomes.species.copy()
 
 # Load and check samples properties tables
 try:

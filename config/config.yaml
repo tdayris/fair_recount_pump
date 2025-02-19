@@ -1,2 +1,3 @@
 bamcount: "/mnt/beegfs/database/bioinfo/monorail-external/bamcount"
 samples: "config/samples.csv"
+genomes: "config/genomes.csv"

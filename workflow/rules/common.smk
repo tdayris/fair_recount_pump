@@ -77,7 +77,6 @@ def load_genomes(
         "Provide either a path to a genome file, or a loaded samples table"
     )
 
-genomes.index = genomes.species.copy()
 
 # Load and check samples properties tables
 try:
@@ -96,6 +95,8 @@ try:
         genomes: pandas.DataFrame = load_genomes(genomes_table_path, samples)
 except NameError:
     genomes: pandas.DataFrame = load_genomes(genomes_table_path, samples)
+
+genomes.index = genomes.species.copy()
 
 
 def lookup_config(

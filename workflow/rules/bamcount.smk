@@ -21,7 +21,7 @@ rule bamcount:
         bed=branch(
             is_human,
             then=genomes.loc["homo_sapiens"]["bed"],
-            otherwise=genomes.log["mus_musculus"]["bed"],
+            otherwise=genomes.loc["mus_musculus"]["bed"],
         ),
         exe=config.get("bamcount", "bamcount"),
     output:

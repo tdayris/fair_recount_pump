@@ -36,6 +36,21 @@ def load_table(path: str) -> pandas.DataFrame:
 
     return table
 
+def used_genomes(
+    genomes: pandas.DataFrame, samples: pandas.DataFrame | None = None
+) -> tuple[str]:
+    """
+    Reduce the number of genomes to download to the strict minimum
+    """
+    if samples is None:
+        return genomes
+
+    return genomes.loc[
+        genomes.species.isin(samples.species.tolist())
+        & genomes.build.isin(samples.build.tolist())
+        & genomes.release.isin(samples.release.tolist())
+    ]
+
 def load_genomes(
     path: str | None = None, samples: pandas.DataFrame | None = None
 ) -> pandas.DataFrame:

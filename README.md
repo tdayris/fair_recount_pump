@@ -39,4 +39,7 @@ A simple CSV file with the following columns:
 1. `sample_id`: unique sample name
 1. `upstream_file`: path to upstream read file (R1 fastq). Must be gz-compressed.
 1. `downstream_file`: path to downstream read file (R2 fastq). Must be gz-compressed.
+1. `species`: The species name, according to Ensembl standards.
+1. `build`: The corresponding genome build, according to Ensembl standards.
+1. `release`: The corresponding genome release, according to Ensembl standards.
 

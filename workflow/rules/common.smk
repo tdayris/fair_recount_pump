@@ -3,6 +3,7 @@ import os.path
 import pandas
 from typing import Any
 
+
 configfile: "config/config.yaml"
 
 
@@ -36,6 +37,7 @@ def load_table(path: str) -> pandas.DataFrame:
 
     return table
 
+
 def used_genomes(
     genomes: pandas.DataFrame, samples: pandas.DataFrame | None = None
 ) -> tuple[str]:
@@ -51,6 +53,7 @@ def used_genomes(
         & genomes.release.isin(samples.release.tolist())
     ]
 
+
 def load_genomes(
     path: str | None = None, samples: pandas.DataFrame | None = None
 ) -> pandas.DataFrame:
@@ -64,7 +67,7 @@ def load_genomes(
     if path is not None:
         genomes: pandas.DataFrame = load_table(path)
 
-        #if samples is not None:
+        # if samples is not None:
         #    genomes = used_genomes(genomes, samples)
         return genomes
 
@@ -97,7 +100,7 @@ except NameError:
     genomes: pandas.DataFrame = load_genomes(genomes_table_path, samples)
 
 genomes.index = genomes.species.copy()
-print(genomes)
+samples.index = samples.sample_id.copy()
 
 
 def lookup_config(
@@ -138,12 +141,18 @@ def lookup_genomes(
     return query_result
 
 
-def get_sample_species(wildcards: snakemake.io.Wildcards, samples: pandas.DataFrame = samples,) -> str:
+def get_sample_species(
+    wildcards: snakemake.io.Wildcards,
+    samples: pandas.DataFrame = samples,
+) -> str:
     """Return the species related to a given sample"""
     return samples.loc[str(wildcards.sample)]["species"]
 
 
-def is_human(wildcards: snakemake.io.Wildcards, samples: pandas.DataFrame = samples,) -> bool:
+def is_human(
+    wildcards: snakemake.io.Wildcards,
+    samples: pandas.DataFrame = samples,
+) -> bool:
     """Return true if a sample belongs to homo_sapiens species"""
     return str(get_sample_species(wildcards, samples)).lower() == "homo_sapiens"
 

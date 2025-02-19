@@ -19,25 +19,36 @@ shopt -s nullglob
 hostname
 date
 
+# Dealing with temporary directories
+BIGR_TMP="${PWD}/tmp"
+TMP="${BIGR_TMP}"
+TEMP="${BIGR_TMP}"
+TMPDIR="${BIGR_TMP}"
+TEMPDIR="${BIGR_TMP}"
+_JAVA_OPTIONS=" -Djava.io.tmpdir=\"${BIGR_TMP}\" "
+
+export BIGR_TMP
+export _JAVA_OPTIONS TMP TEMP TMPDIR TEMP
+
 # Conda environment
 source "/mnt/beegfs/pipelines/unofficial-snakemake-wrappers/shared_install/snakemake_v8.16.0/etc/profile.d/conda.sh"
 source "/mnt/beegfs/pipelines/unofficial-snakemake-wrappers/shared_install/snakemake_v8.16.0/etc/profile.d/mamba.sh"
 conda activate "/mnt/beegfs/pipelines/unofficial-snakemake-wrappers/shared_install/snakemake_v8.16.0"
 
 # Run pipeline
-snakemake \\
-  --cores 30 \\
-  --jobs 50 \\
-  --local-cores 2 \\
-  --keep-going \\
-  --rerun-triggers 'mtime' \\
-  --executor slurm-gustave-roussy \\
-  --benchmark-extended \\
-  --rerun-incomplete \\
-  --printshellcmds \\
-  --restart-times 3 \\
-  --show-failed-logs \\
-  --jobname '{name}.{jobid}.slurm.snakejob.sh' \\
-  --conda-prefix '' \\
-  --apptainer-prefix '' \\
-  --shadow-prefix ''
+snakemake \
+  --cores 30 \
+  --jobs 50 \
+  --local-cores 2 \
+  --keep-going \
+  --rerun-triggers 'mtime' \
+  --executor slurm-gustave-roussy \
+  --benchmark-extended \
+  --rerun-incomplete \
+  --printshellcmds \
+  --restart-times 3 \
+  --show-failed-logs \
+  --jobname '{name}.{jobid}.slurm.snakejob.sh' \
+  --conda-prefix '/mnt/beegfs/pipelines/unofficial-snakemake-wrappers/shared_install/' \
+  --apptainer-prefix '/mnt/beegfs/pipelines/unofficial-snakemake-wrappers/singularity/' \
+  --shadow-prefix '${BIGR_TMP}'

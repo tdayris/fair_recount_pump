@@ -64,8 +64,8 @@ def load_genomes(
     if path is not None:
         genomes: pandas.DataFrame = load_table(path)
 
-        if samples is not None:
-            genomes = used_genomes(genomes, samples)
+        #if samples is not None:
+        #    genomes = used_genomes(genomes, samples)
         return genomes
 
     elif samples is not None:
@@ -97,6 +97,7 @@ except NameError:
     genomes: pandas.DataFrame = load_genomes(genomes_table_path, samples)
 
 genomes.index = genomes.species.copy()
+print(genomes)
 
 
 def lookup_config(
@@ -139,7 +140,7 @@ def lookup_genomes(
 
 def get_sample_species(wildcards: snakemake.io.Wildcards, samples: pandas.DataFrame = samples,) -> str:
     """Return the species related to a given sample"""
-    return samples.loc[str(wildcards.sample)].to_dict()["species"]
+    return samples.loc[str(wildcards.sample)]["species"]
 
 
 def is_human(wildcards: snakemake.io.Wildcards, samples: pandas.DataFrame = samples,) -> bool:

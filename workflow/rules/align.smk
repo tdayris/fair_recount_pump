@@ -4,8 +4,8 @@ rule star_align:
         r2="tmp/fair_fastqc_multiqc_link_or_concat_pair_ended_input/{sample}.2.fastq.gz",
         index=branch(
             is_human,
-            then=get_attr(lookup(query="species == 'homo_sapiens'", within=genomes), "star_index"),
-            otherwise=get_attr(lookup(query="species == 'mus_musculus'", within=genomes), "star_index"),
+            then=getattr(lookup(query="species == 'homo_sapiens'", within=genomes), "star_index"),
+            otherwise=getattr(lookup(query="species == 'mus_musculus'", within=genomes), "star_index"),
         ),
     output:
         bam=temp("tmp/align/star_align/{sample}/Aligned.out.bam"),

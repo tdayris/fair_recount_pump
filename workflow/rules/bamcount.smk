@@ -18,9 +18,10 @@ rule bamcount:
     input:
         bam="tmp/sort/samtools_sort/{sample}.bam",
         bai="tmp/sort/samtools_sort/{sample}.bam.bai",
-        bed=config.get(
-            "bed",
-            "/mnt/beegfs/database/bioinfo/monorail-external/hg38/gtf/g26_g29_f6_r109_ercc_sirv.disjoint-exons.2019-09-24.w_introns.sorted.bed",
+        bed=branch(
+            is_human,
+            then=get_attr(lookup(query="species == 'homo_sapiens'", within=genomes), "bed",),
+            otherwise=get_attr(lookup(query="species == 'mus_musculus'", within=genomes), "bed",),
         ),
         exe=config.get("bamcount", "bamcount"),
     output:

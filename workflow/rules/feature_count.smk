@@ -2,9 +2,10 @@ rule exon_fc_count_unique:
     input:
         bam="tmp/sort/samtools_sort/{sample}.bam",
         bai="tmp/sort/samtools_sort/{sample}.bam.bai",
-        gtf=config.get(
-            "gtf",
-            "/mnt/beegfs/database/bioinfo/monorail-external/hg38/gtf/gencode.v26.chr_patch_hapl_scaff.annotation.subset.gtf",
+        gtf=branch(
+            is_human,
+            then=get_attr(lookup(query="species == 'homo_sapiens'", within=genomes), "gtf",),
+            otherwise=get_attr(lookup(query="species == 'mus_musculus'", within=genomes), "gtf",),
         ),
     output:
         tsv=temp(

@@ -1,6 +1,2 @@
-star_index: "/mnt/beegfs/database/bioinfo/monorail-external/hg38/star_idx"
-bed: "/mnt/beegfs/database/bioinfo/monorail-external/hg38/gtf/exons.bed"
-fasta: "/mnt/beegfs/database/bioinfo/monorail-external/hg38/fasta/genome.fa"
-gtf: "/mnt/beegfs/database/bioinfo/monorail-external/hg38/gtf/genes.gtf"
 bamcount: "/mnt/beegfs/database/bioinfo/monorail-external/bamcount"
 samples: "config/samples.csv"

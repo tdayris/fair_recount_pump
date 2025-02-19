@@ -32,7 +32,7 @@ snakemake   --cores 30   \
 ```
 
 
-## `Samples.csv`
+## `config/samples.csv`
 
 A simple CSV file with the following columns:
 
@@ -43,3 +43,15 @@ A simple CSV file with the following columns:
 1. `build`: The corresponding genome build, according to Ensembl standards.
 1. `release`: The corresponding genome release, according to Ensembl standards.
 
+## `config/genomes.csv`
+
+A simple CSV file with the following columns:
+
+1. `species`: The species name, according to Ensembl standards
+1. `build`: The corresponding Ensembl genome build
+1. `release`: The corresponding Ensemnbl genome build
+1. `star_index`: The genome indexed with STAR (obtained from recount themselves)
+1. `salmon_index`: The genome indexed with Salmon (obtained from recount themselves)
+1. `gtf`: The GTF annotation (obtained from recount themselves)
+1. `fasta`: The genome sequences (obtained from recount themselves)
+1. `bed`: The genomic intervals (obtained from recount themselves)

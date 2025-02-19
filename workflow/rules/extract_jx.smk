@@ -2,13 +2,15 @@ rule regtools_junction_extract:
     input:
         bam="tmp/sort/samtools_sort/{sample}.bam",
         bai="tmp/sort/samtools_sort/{sample}.bam.bai",
-        fa=config.get(
-            "fasta",
-            "/mnt/beegfs/database/bioinfo/monorail-external/hg38/fasta/genome.fa",
+        fa=branch(
+            is_human,
+            then=get_attr(lookup(query="species == 'homo_sapiens'", within=genomes), "fasta",),
+            otherwise=get_attr(lookup(query="species == 'mus_musculus'", within=genomes), "fasta",),
         ),
-        gtf=config.get(
-            "gtf",
-            "/mnt/beegfs/database/bioinfo/monorail-external/hg38/gtf/gencode.v26.chr_patch_hapl_scaff.annotation.subset.gtf",
+        gtf=branch(
+            is_human,
+            then=get_attr(lookup(query="species == 'homo_sapiens'", within=genomes), "gtf",),
+            otherwise=get_attr(lookup(query="species == 'mus_musculus'", within=genomes), "gtf",),
         ),
     output:
         temp("tmp/extract_jx/regtools_junction_extract/{sample}.jx_tmp"),

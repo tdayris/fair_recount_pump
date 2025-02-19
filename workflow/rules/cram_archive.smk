@@ -2,9 +2,10 @@ rule cram_mapped_reads:
     input:
         bam="tmp/sort/samtools_sort/{sample}.bam",
         bai="tmp/sort/samtools_sort/{sample}.bam.bai",
-        ref=config.get(
-            "fasta",
-            "/mnt/beegfs/database/bioinfo/monorail-external/hg38/fasta/genome.fa",
+        ref=branch(
+            is_human,
+            then=get_attr(lookup(query="species == 'homo_sapiens'", within=genomes), "fasta",),
+            otherwise=get_attr(lookup(query="species == 'mus_musculus'", within=genomes), "fasta",),
         ),
     output:
         "results/{sample}/{sample}.cram",

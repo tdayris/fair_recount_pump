@@ -51,4 +51,5 @@ snakemake \
   --jobname '{name}.{jobid}.slurm.snakejob.sh' \
   --conda-prefix '/mnt/beegfs/pipelines/unofficial-snakemake-wrappers/shared_install/' \
   --apptainer-prefix '/mnt/beegfs/pipelines/unofficial-snakemake-wrappers/singularity/' \
-  --shadow-prefix '${BIGR_TMP}'
+  --shadow-prefix "${BIGR_TMP}" \
+  --software-deployment-method 'conda'

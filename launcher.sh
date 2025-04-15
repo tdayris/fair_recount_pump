@@ -49,6 +49,6 @@ snakemake \
   --restart-times 3 \
   --show-failed-logs \
   --jobname '{name}.{jobid}.slurm.snakejob.sh' \
-  --conda-prefix '/mnt/beegfs/pipelines/unofficial-snakemake-wrappers/shared_install/' \
-  --apptainer-prefix '/mnt/beegfs/pipelines/unofficial-snakemake-wrappers/singularity/' \
+  --conda-prefix '/mnt/beegfs02/pipelines/unofficial-snakemake-wrappers/shared_install/' \
+  --apptainer-prefix '/mnt/beegfs02/pipelines/unofficial-snakemake-wrappers/singularity/' \
   --shadow-prefix '${BIGR_TMP}'

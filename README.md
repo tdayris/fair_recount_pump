@@ -24,9 +24,9 @@ snakemake   --cores 30   \
             --show-failed-logs   \
             --jobname '{name}.{jobid}.slurm.snakejob.sh'   \
             --software-deployment-method 'conda'   \
-            --conda-prefix '/mnt/beegfs/pipelines/unofficial-snakemake-wrappers/shared_install/'   \
-            --apptainer-prefix '/mnt/beegfs/pipelines/unofficial-snakemake-wrappers/singularity/'   \
-            --shadow-prefix '/mnt/beegfs/userdata/t_dayris/test/monorail_external/tmp'   \
+            --conda-prefix '/mnt/beegfs02/pipelines/unofficial-snakemake-wrappers/shared_install/'   \
+            --apptainer-prefix '/mnt/beegfs02/pipelines/unofficial-snakemake-wrappers/singularity/'   \
+            --shadow-prefix '/mnt/beegfs02/userdata/t_dayris/test/monorail_external/tmp'   \
             --use-envmodules   \
             -s /path/to/workflow/Snakefile
 ```

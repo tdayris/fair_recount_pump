@@ -31,8 +31,7 @@ export BIGR_TMP
 export _JAVA_OPTIONS TMP TEMP TMPDIR TEMP
 
 # Conda environment
-source "/mnt/beegfs/pipelines/unofficial-snakemake-wrappers/shared_install/snakemake_v8.16.0/etc/profile.d/conda.sh"
-source "/mnt/beegfs/pipelines/unofficial-snakemake-wrappers/shared_install/snakemake_v8.16.0/etc/profile.d/mamba.sh"
+module load miniconda/25.1.1
 conda activate "/mnt/beegfs/pipelines/unofficial-snakemake-wrappers/shared_install/snakemake_v8.16.0"
 
 # Run pipeline

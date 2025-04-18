@@ -12,10 +12,11 @@
 
 
 # Ensure bash works properly or stops
-set -eiop 'pipefail'
+set -euo 'pipefail'
 shopt -s nullglob
 
 # Logging details
+echo "Working at:"
 hostname
 date
 
@@ -29,10 +30,16 @@ _JAVA_OPTIONS=" -Djava.io.tmpdir=\"${BIGR_TMP}\" "
 
 export BIGR_TMP
 export _JAVA_OPTIONS TMP TEMP TMPDIR TEMP
+echo -e "Temporary directory: ${TMP}"
 
 # Conda environment
-module load miniconda/25.1.1
-conda activate "/mnt/beegfs/pipelines/unofficial-snakemake-wrappers/shared_install/snakemake_v8.16.0"
+source "/home/t_dayris/conda_envs/miniconda3/etc/profile.d/conda.sh"
+source "/home/t_dayris/conda_envs/miniconda3/etc/profile.d/mamba.sh"
+conda activate --no-stack \
+    "/mnt/beegfs02/pipelines/unofficial-snakemake-wrappers/shared_install/snakemake_v8.16.0"
+
+snakemake --version
+echo "Conda activated"
 
 # Run pipeline
 snakemake \
@@ -41,7 +48,7 @@ snakemake \
   --local-cores 2 \
   --keep-going \
   --rerun-triggers 'mtime' \
-  --executor slurm-gustave-roussy \
+  --executor 'slurm-gustave-roussy' \
   --benchmark-extended \
   --rerun-incomplete \
   --printshellcmds \
@@ -51,4 +58,5 @@ snakemake \
   --conda-prefix '/mnt/beegfs02/pipelines/unofficial-snakemake-wrappers/shared_install/' \
   --apptainer-prefix '/mnt/beegfs02/pipelines/unofficial-snakemake-wrappers/singularity/' \
   --shadow-prefix "${BIGR_TMP}" \
-  --software-deployment-method 'conda'
+  --software-deployment-method 'conda' \
+  --conda-frontend 'conda'

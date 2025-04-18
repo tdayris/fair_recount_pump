@@ -92,7 +92,7 @@ rule awk_remove_header_gene_id:
         "logs/feature_count/awk_remove_header_gene_id/{sample}.{gene_exon}.{unique_all}.log",
     params:
         v="-v OFS='\\t'",
-        main="'$1 !~ /^#/ && $1 !~ /^Geneid/ && $NF != 0 {{print \"{wildcards.sample}\",$0}}'",
+        main=lambda wildcards: f"'$1 !~ /^#/ && $1 !~ /^Geneid/ && $NF != 0 {{print \"{wildcards.sample}\",$0}}'",
     conda:
         "../envs/awk.yaml"
     shell:

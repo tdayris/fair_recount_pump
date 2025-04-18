@@ -17,7 +17,7 @@ rule samtools_sort:
         "../envs/samtools.yaml"
     shell:
         "samtools sort {params.samtools} "
-        "-T {resources.tmpdir}/samtools_temp_{sample} "
+        "-T {resources.tmpdir}/samtools_temp_{wildcards.sample} "
         "-@ 7  -o {output} {input} "
         "> {log} 2>&1 && "
         "wc {params.wc} {input} >> {log} 2>&1"

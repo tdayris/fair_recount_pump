@@ -18,6 +18,7 @@ rule star_align:
         unmate1=temp("tmp/align/star_align/{sample}/Unmapped.out.mate1"),
         unmate2=temp("tmp/align/star_align/{sample}/Unmapped.out.mate2"),
     threads: 20
+    shadow: "minimal"
     resources:
         mem_mb=lambda wildcards, attempt: attempt * 10_000 + 36_000,
         runtime=lambda wildcards, attempt: attempt * 75,

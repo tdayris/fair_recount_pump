@@ -97,7 +97,7 @@ rule awk_remove_header_gene_id:
         "../envs/awk.yaml"
     shell:
         #"awk {params.v} {params.main} {input} > {output} 2> {log}"
-        "sed '1d' {input} > {output} > {log}"
+        "sed '1d' {input} > {output} 2> {log}"
 
 
 rule compress_feature_counts:

@@ -7,16 +7,17 @@ requirements.
 
 ## Run pipeline
 
-1. Create `config/samples.csv` file
-2. Create `config/config.yaml` with optional configuration (or let it empty to run all defaults)
+1. Copy `config/samples.csv` file and adapt it to your data.
+2. Copy `config/config.yaml` file and adapt it to your project and pipeline localisation.
 3. Run Snakemake command:
 
 ```sh
-snakemake   --cores 30   \
-            --jobs 50   \
+snakemake   --cores 20   \
+            --jobs 30   \
             --local-cores 2   \
+            --keep-going   \
             --rerun-triggers 'mtime'   \
-            --executor slurm-gustave-roussy   \
+            --executor 'slurm-gustave-roussy'   \
             --benchmark-extended   \
             --rerun-incomplete   \
             --printshellcmds   \
@@ -26,9 +27,11 @@ snakemake   --cores 30   \
             --software-deployment-method 'conda'   \
             --conda-prefix '/mnt/beegfs02/pipelines/unofficial-snakemake-wrappers/shared_install/'   \
             --apptainer-prefix '/mnt/beegfs02/pipelines/unofficial-snakemake-wrappers/singularity/'   \
-            --shadow-prefix '/mnt/beegfs02/userdata/t_dayris/test/monorail_external/tmp'   \
+            --shadow-prefix '/path/to/tmp'   \
             --use-envmodules   \
-            -s /path/to/workflow/Snakefile
+            -s /path/to/workflow/Snakefile   \
+            --configfile '/path/to/config/config.yaml'
+
 ```
 
 
@@ -43,6 +46,14 @@ A simple CSV file with the following columns:
 1. `build`: The corresponding genome build, according to Ensembl standards.
 1. `release`: The corresponding genome release, according to Ensembl standards.
 
+## `config/config.yaml`
+
+A simple yaml file with the following parameters:
+1. `bamcount: "/mnt/beegfs02/database/bioinfo/monorail-external/bamcount/"`
+1. `samples: "/path/to/your_samples.csv"`
+1. `genomes: "/path/to/pipeline/config/genomes.csv"`
+
+
 ## `config/genomes.csv`
 
 A simple CSV file with the following columns:
@@ -55,3 +66,4 @@ A simple CSV file with the following columns:
 1. `gtf`: The GTF annotation (obtained from recount themselves)
 1. `fasta`: The genome sequences (obtained from recount themselves)
 1. `bed`: The genomic intervals (obtained from recount themselves)
+

@@ -43,8 +43,8 @@ echo "Conda activated"
 
 # Run pipeline
 snakemake \
-  --cores 30 \
-  --jobs 50 \
+  --cores 20 \
+  --jobs 30 \
   --local-cores 2 \
   --keep-going \
   --rerun-triggers 'mtime' \
@@ -59,4 +59,8 @@ snakemake \
   --apptainer-prefix '/mnt/beegfs02/pipelines/unofficial-snakemake-wrappers/singularity/' \
   --shadow-prefix "${BIGR_TMP}" \
   --software-deployment-method 'conda' \
-  --conda-frontend 'conda'
+  --conda-frontend 'conda' \
+  --use-envmodules \
+  -s '/path/to/workflow/Snakefile' \
+  --configfile '/path/to/config/config.yaml'
+

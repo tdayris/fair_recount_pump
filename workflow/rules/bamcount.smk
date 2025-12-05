@@ -51,7 +51,7 @@ rule bamcount:
     conda:
         "../envs/samtools.yaml"
     shell:
-        "./{input.exe} "
+        "{input.exe} "
         "{input.bam} "
         "{params.extra} "
         "--threads {threads} "

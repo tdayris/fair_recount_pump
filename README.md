@@ -9,30 +9,23 @@ requirements.
 ## Run pipeline
 
 1. Copy `config/samples.csv` file and adapt it to your data.
+
+```sh
+rsync -cvrhP '/mnt/beegfs01/pipelines_old_centos7/fair_recount_pump/config/samples.csv' .
+```
+
 2. Copy `config/config.yaml` file and adapt it to your project and pipeline localisation.
+
+```sh
+rsync -cvrhP '/mnt/beegfs01/pipelines_old_centos7/fair_recount_pump/config/config.yaml' .
+```
+
 3. Run Snakemake command:
 
 ```sh
-snakemake   --cores 20   \
-            --jobs 30   \
-            --local-cores 2   \
-            --keep-going   \
-            --rerun-triggers 'mtime'   \
-            --executor 'slurm-gustave-roussy'   \
-            --benchmark-extended   \
-            --rerun-incomplete   \
-            --printshellcmds   \
-            --restart-times 0   \
-            --show-failed-logs   \
-            --jobname '{name}.{jobid}.slurm.snakejob.sh'   \
-            --software-deployment-method 'conda'   \
-            --conda-prefix '/mnt/beegfs02/pipelines/unofficial-snakemake-wrappers/shared_install/'   \
-            --apptainer-prefix '/mnt/beegfs02/pipelines/unofficial-snakemake-wrappers/singularity/'   \
-            --shadow-prefix '/path/to/tmp'   \
-            --use-envmodules   \
-            -s /path/to/workflow/Snakefile   \
-            --configfile '/path/to/config/config.yaml'
-
+snakemake   --profile '/mnt/beegfs01/pipelines_old_centos7/fair_recount_pump/profiles/slurm-flamingo' \
+            --workflow-profile '/mnt/beegfs01/pipelines_old_centos7/fair_recount_pump/profiles/workflow-slurm-flamingo/config.yaml' \
+            -s '/mnt/beegfs01/pipelines_old_centos7/fair_recount_pump/workflow/Snakefile' \
 ```
 
 ## `config/samples.csv`
@@ -66,3 +59,14 @@ A simple CSV file with the following columns:
 1. `gtf`: The GTF annotation (obtained from recount themselves)
 1. `fasta`: The genome sequences (obtained from recount themselves)
 1. `bed`: The genomic intervals (obtained from recount themselves)
+
+## How to:
+
+### One sample with multiple fastq files:
+
+Use quotes and separate your re-sequencing steps by a comma:
+
+```csv
+sample,upstream_file,downstream_file,species,build,release
+Resequenced1,'/path/to/reads.1.R1.fq.gz,/path/to/reads.2.R1.fq.gz','/path/to/reads.1.R2.fq.gz,/path/to/reads.2.R2.fq.gz',homo_sapiens,GRCh38,105
+```

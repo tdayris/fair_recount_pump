@@ -1,4 +1,5 @@
-rule fair_fastqc_multiqc_link_or_concat_single_ended_input:
+rule link_or_concat_single_ended_input:
+    """access single ended input files"""
     output:
         temp(
             "tmp/fair_fastqc_multiqc_link_or_concat_single_ended_input/{sample}.fastq.gz"
@@ -10,12 +11,6 @@ rule fair_fastqc_multiqc_link_or_concat_single_ended_input:
     conda:
         "../envs/python.yaml"
     threads: 1
-    resources:
-        mem_mb=lambda wildcards, attempt: 400 + attempt * 100,
-        runtime=lambda wildcards, input, attempt: attempt
-        * max(1, int(input.size_mb / 1024))
-        * 10,
-        tmpdir=tmp,
     params:
         in_files=collect(
             "{sample.upstream_file}",
@@ -28,7 +23,8 @@ rule fair_fastqc_multiqc_link_or_concat_single_ended_input:
         "../scripts/link_or_concat.py"
 
 
-use rule fair_fastqc_multiqc_link_or_concat_single_ended_input as fair_fastqc_multiqc_link_or_concat_pair_ended_input with:
+use rule link_or_concat_single_ended_input as link_or_concat_pair_ended_input with:
+    """access pair ended input files"""
     output:
         temp(
             "tmp/fair_fastqc_multiqc_link_or_concat_pair_ended_input/{sample}.{stream}.fastq.gz"

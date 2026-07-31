@@ -5,6 +5,8 @@ import snakemake.iocontainers
 from typing import Any
 
 
+container: "docker://condaforge/miniforge3:26.3.2-3"
+
 configfile: "config/config.yaml"
 
 

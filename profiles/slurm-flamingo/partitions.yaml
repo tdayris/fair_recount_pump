@@ -43,4 +43,3 @@ partitions:
       - "t4"
     supports_mpi: false
     max_nodes: 2
-

@@ -7,10 +7,6 @@ set-resources:
     mem_mb: min(10000, attempt * 2000)
     runtime: attempt * 45
 
-  zstd_junctions_tab:
-    mem_mb: min(4000, attempt * 1500)
-    runtime: attempt * 30
-
   seqtk_fqchk:
     mem_mb: min(4000, attempt * 1000)
     runtime: attempt * 30

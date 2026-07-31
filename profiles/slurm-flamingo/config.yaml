@@ -18,12 +18,11 @@ latency-wait: 5
 slurm-efficiency-report: true
 slurm-efficiency-report-path: "benchmark/efficiency_reports"
 slurm-efficiency-threshold: 0.9
-conda-prefix: '/mnt/beegfs01/pipelines_old_centos7/fair_recount_pump/conda_shared_install' \
-apptainer-prefix: '/mnt/beegfs01/pipelines_old_centos7/fair_recount_pump/singularity_shared_install' \
-shadow-prefix: '/path/to/tmp'
+conda-prefix: "/mnt/beegfs01/pipelines_old_centos7/fair_recount_pump/conda_shared_install"
+apptainer-prefix: "/mnt/beegfs01/pipelines_old_centos7/fair_recount_pump/singularity_shared_install"
 use-envmodules: true
 default-resources:
-  - runtime=60
-  - mem_mb=1000
-  - tmpdir=tmp
-  - slurm_account=igr_hpc
+  runtime: 60
+  mem_mb: 1000
+  tmpdir: "tmp"
+  slurm_account: "igr_hpc"

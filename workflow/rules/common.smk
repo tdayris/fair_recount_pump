@@ -1,6 +1,7 @@
 import csv
 import os.path
 import pandas
+import snakemake.iocontainers
 from typing import Any
 
 
@@ -122,7 +123,7 @@ def lookup_config(
 
 
 def lookup_genomes(
-    wildcards: snakemake.io.Wildcards,
+    wildcards: snakemake.iocontainers.Wildcards,
     key: str,
     default: str | list[str] | None = None,
     genomes: pandas.DataFrame = genomes,
@@ -142,7 +143,7 @@ def lookup_genomes(
 
 
 def get_sample_species(
-    wildcards: snakemake.io.Wildcards,
+    wildcards: snakemake.iocontainers.Wildcards,
     samples: pandas.DataFrame = samples,
 ) -> str:
     """Return the species related to a given sample"""
@@ -150,7 +151,7 @@ def get_sample_species(
 
 
 def is_human(
-    wildcards: snakemake.io.Wildcards,
+    wildcards: snakemake.iocontainers.Wildcards,
     samples: pandas.DataFrame = samples,
 ) -> bool:
     """Return true if a sample belongs to homo_sapiens species"""

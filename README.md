@@ -1,5 +1,6 @@
 # fair_recount_pump
- Run Recount-pump with snakemake workflow interface and conda deployment
+
+Run Recount-pump with snakemake workflow interface and conda deployment
 
 This pipeline runs the outdated recount s5 pipeline without the strange name scheme,
 without command line errors, with reduced memory reservation, with reduced time
@@ -34,7 +35,6 @@ snakemake   --cores 20   \
 
 ```
 
-
 ## `config/samples.csv`
 
 A simple CSV file with the following columns:
@@ -49,10 +49,10 @@ A simple CSV file with the following columns:
 ## `config/config.yaml`
 
 A simple yaml file with the following parameters:
+
 1. `bamcount: "/mnt/beegfs02/database/bioinfo/monorail-external/bamcount/"`
 1. `samples: "/path/to/your_samples.csv"`
 1. `genomes: "/path/to/pipeline/config/genomes.csv"`
-
 
 ## `config/genomes.csv`
 
@@ -66,4 +66,3 @@ A simple CSV file with the following columns:
 1. `gtf`: The GTF annotation (obtained from recount themselves)
 1. `fasta`: The genome sequences (obtained from recount themselves)
 1. `bed`: The genomic intervals (obtained from recount themselves)
-

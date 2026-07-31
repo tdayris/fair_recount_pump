@@ -1,12 +1,12 @@
 include: "rules/common.smk"
-include: "rules/align.smk"
-include: "rules/bamcount.smk"
-include: "rules/cram_archive.smk"
-include: "rules/extract_jx.smk"
-include: "rules/fair_fastqc_multiqc.smk"
-include: "rules/fastq_check.smk"
-include: "rules/feature_count.smk"
-include: "rules/sort.smk"
+include: "rules/pump_align.smk"
+include: "rules/pump_bamcount.smk"
+include: "rules/pump_cram_archive.smk"
+include: "rules/pump_extract_jx.smk"
+include: "rules/pump_link_fastq.smk"
+include: "rules/pump_fastq_check.smk"
+include: "rules/pump_feature_count.smk"
+include: "rules/pump_sort.smk"
 
 
 rule target:

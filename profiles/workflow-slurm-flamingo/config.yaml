@@ -1,0 +1,100 @@
+set-resources:
+  cram_mapped_reads:
+    mem_mb: min(5000, attempt * 3000)
+    runtime: attempt * 75
+
+  regtools_junction_extract:
+    mem_mb: min(10000, attempt * 2000)
+    runtime: attempt * 45
+
+  zstd_junctions_tab:
+    mem_mb: min(4000, attempt * 1500)
+    runtime: attempt * 30
+
+  seqtk_fqchk:
+    mem_mb: min(4000, attempt * 1000)
+    runtime: attempt * 30
+
+  aggregate_seqtk_fqchk:
+    mem_mb: min(1500, attempt * 750)
+    runtime: attempt * 30
+
+  exon_fc_count_unique:
+    mem_mb: min(6000, attempt * 4000)
+    runtime: attempt * 35
+
+  exon_fc_count_all:
+    mem_mb: min(6000, attempt * 4000)
+    runtime: attempt * 35
+
+  gene_fc_count_unique:
+    mem_mb: min(6000, attempt * 4000)
+    runtime: attempt * 35
+
+  gene_fc_count_all:
+    mem_mb: min(6000, attempt * 4000)
+    runtime: attempt * 35
+
+  sed_remove_header_gene_id:
+    mem_mb: min(2000, attempt * 750)
+    runtime: attempt * 20
+
+  compress_feature_counts:
+    mem_mb: min(3000, attempt * 1000)
+    runtime: attempt * 35
+
+  make_summary_available:
+    mem_mb: min(1000, attempt * 750)
+    runtime: attempt * 35
+
+  link_or_concat_single_ended_input:
+    mem_mb: min(1000, 400 + 100 * attempt)
+    runtime: attempt * 35
+
+  link_or_concat_pair_ended_input:
+    mem_mb: min(1000, 400 + 100 * attempt)
+    runtime: attempt * 35
+
+  samtools_sort:
+    mem_mb: min(15000, attempt * 9000)
+    runtime: attempt * 75
+
+  samtools_index:
+    mem_mb: min(4000, attempt * 1500)
+    runtime: attempt * 20
+
+  samtools_idxstats:
+    mem_mb: min(4000, attempt * 1500)
+    runtime: attempt * 30
+
+  star_align:
+    mem_mb: min(50000, 36000 + 10000 * attempt)
+    runtime: attempt * 120
+
+  zstd_junctions_tab:
+    mem_mb: min(4000, 2000 * attempt)
+    runtime: attempt * 35
+
+  zdst_chimeric_junctions:
+    mem_mb: min(4000, 2000 * attempt)
+    runtime: attempt * 35
+
+  zdst_chimeric_sam:
+    mem_mb: min(4000, 2000 * attempt)
+    runtime: attempt * 35
+
+  sort_chimeric_junctions:
+    mem_mb: min(8000, 5000 * attempt)
+    runtime: attempt * 45
+
+  get_bamcount:
+    mem_mb: min(1500, 800 * attempt)
+    runtime: attempt * 30
+
+  bamcount:
+    mem_mb: min(15000, 6000 * attempt)
+    runtime: attempt * 60
+
+  zdst_bamcount:
+    mem_mb: min(4000 * attempt * 2000)
+    runtime: attempt * 35

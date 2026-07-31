@@ -1,0 +1,8 @@
+channels:
+  - https://prefix.dev/conda-forge
+  - https://prefix.dev/bioconda
+  - nodefaults
+dependencies:
+  - snakefmt =2.0.3
+  - prettier =3.9.3
+  - black =26.5.1

@@ -1,0 +1,6 @@
+channels:
+  - https://prefix.dev/conda-forge
+  - https://prefix.dev/bioconda
+  - nodefaults
+dependencies:
+  - snakedeploy =0.16.2

@@ -11,7 +11,7 @@ retries: 2
 show-failed-logs: true
 benchmark-extended: true
 software-deployment-method:
-  - "apptainer"
+  #  - "apptainer"
   - "conda"
 executor: "slurm"
 latency-wait: 5

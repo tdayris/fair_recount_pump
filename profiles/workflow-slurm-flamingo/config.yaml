@@ -92,5 +92,5 @@ set-resources:
     runtime: attempt * 60
 
   zdst_bamcount:
-    mem_mb: min(4000 * attempt * 2000)
+    mem_mb: min(4000, attempt * 2000)
     runtime: attempt * 35

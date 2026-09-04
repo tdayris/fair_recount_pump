@@ -20,7 +20,7 @@ rule link_or_concat_single_ended_input:
             ),
         ),
     script:
-        "../scripts/link_or_concat.py"
+        "../script/link_or_concat.py"
 
 
 use rule link_or_concat_single_ended_input as link_or_concat_pair_ended_input with:

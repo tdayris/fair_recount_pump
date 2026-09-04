@@ -95,7 +95,7 @@ rule sed_remove_header_gene_id:
     log:
         "logs/feature_count/awk_remove_header_gene_id/{sample}.{gene_exon}.{unique_all}.log",
     benchmark:
-        "benchmark/sed/feature_count_sed_remove_header_gene_id_{sample}.{unique_all}.tsv",
+        "benchmark/sed/feature_count_sed_remove_header_gene_id_{sample}.{gene_exon}.{unique_all}.tsv",
     threads: 1
     params:
         expr='1d',

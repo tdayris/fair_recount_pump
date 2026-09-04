@@ -1,36 +1,45 @@
-rule aggregate_bamcounts:
-    """aggregate bamcounts for future cbioportal upload"""
+rule extract_counts_from_fc_count_genes_unique:
     input:
-       counts=expand(
-            "results/{sample}/{sample}.{content}.tsv.zst",
-            sample=samples_tpl,
-            allow_missing=True,
-        ),
-        script_path=workflow.source_path("../scripts/merge_zdst_read_counts.py"),
+        "results/{sample}/{sample}.gene_fc_count_unique.tsv.zst",
     output:
-        "results/bamcount.{content}.tsv.gz",
-    threads: 6
+        temp("tmp/extract_counts_from_fc_count_genes_unique/{sample}.counts.tsv"),
+    threads: 1
+    resources:
+        mem_mb=lambda wildcards, attempt: min(attempt * 500, 1500),
+        runtime=lambda wildcards, attempt: min(attempt * 15, 60),
+        tmpdir="tmp",
+    log:
+        "logs/extract_counts_from_fc_count_genes_unique/{sample}.log"
+    benchmark:
+        "benchmark/extract_counts_from_fc_count_genes_unique/{sample}.tsv",
     params:
-        extra="-s 'bamcount'",
-    conda:
-        "../envs/aggregation.yaml"
+        zstd="--decompress --stdout --force --keep",
+        cut="-f1,7",
+        sd=lambda wildcards: f"'tmp/sort/samtools_sort/{sample}.bam' 'counts'"
     shell:
-        "python3 {input.script_path:q} "
-        "{params.extra} -i {params.input_dir:q} "
-        "-o {params.output[0]:q} > {log:q} 2>&1 "
+        "( zstd {params.zstd} {input:q} | "
+        "  cut {params.cut} | "
+        "  sd {params.sd} ) > {output:q} 2> {log:q}"
 
 
-use rule aggregate_bamcounts as aggregate_featurecounts with:
-    """aggregate featurecount for future cbioportal upload"""
+rule aggregate_counts:
     input:
-       counts=expand(
-            "results/{sample}/{sample}.{gene_exon}_fc_count_{unique_all}.tsv.zst",
+        expand(
+            "tmp/extract_counts_from_fc_count_genes_unique/{sample}.counts.tsv",
             sample=samples_tpl,
-            allow_missing=True,
         ),
-        script_path=workflow.source_path("../scripts/merge_zdst_read_counts.py"),
     output:
-        "results/bamcount.{gene_exon}.{unique_all}.tsv.gz",
+        "results/aggregated_counts.csv",
+    threads: 1
+    resources:
+        mem_mb=lambda wildcards, attempt: min(attempt * 10000, 100000),
+        runtime=lambda wildcards, attempt: min(attempt * 120, 60 * 24 * 6 - 1),
+        tmpdir="tmp",
+    log:
+        "logs/aggregated_counts.log",
+    benchmark:
+        "benchmark/aggregated_counts.tsv",
     params:
-        extra="-s 'featurecount'",
-        
+        extra="--full --sorted --delimiter ',' --drop-key right  0",
+    shell:
+        "xan join {params.extra} --output {output:q} > {log:q} 2>&1"

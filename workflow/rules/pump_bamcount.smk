@@ -58,7 +58,6 @@ rule bamcount:
             :-1
         ],
     shell:
-        "chmod u+x {input.exe:q} && "
         "{input.exe:q} "
         "{input.bam:q} "
         "{params.extra} "
@@ -80,3 +79,5 @@ use rule zdst_chimeric_junctions as zdst_bamcount with:
         "results/{sample}/{sample}.{content}.tsv.zst",
     log:
         "logs/bamcount/zdst_bamcount/{sample}.{content}.log",
+    benchmark:
+        "benchmark/bamcount/{sample}.{content}.tsv"

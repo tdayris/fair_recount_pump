@@ -22,10 +22,20 @@ rsync -cvrhP '/mnt/beegfs01/pipelines_old_centos7/fair_recount_pump/config/confi
 
 3. Run Snakemake command:
 
+Run the whole pipeline:
+
 ```sh
 snakemake   --profile '/mnt/beegfs01/pipelines_old_centos7/fair_recount_pump/profiles/slurm-flamingo' \
             --workflow-profile '/mnt/beegfs01/pipelines_old_centos7/fair_recount_pump/profiles/workflow-slurm-flamingo/config.yaml' \
-            -s '/mnt/beegfs01/pipelines_old_centos7/fair_recount_pump/workflow/Snakefile' \
+            -s '/mnt/beegfs01/pipelines_old_centos7/fair_recount_pump/workflow/Snakefile'
+```
+
+Run aggregation steps only:
+
+```sh
+snakemake   --profile '/mnt/beegfs01/pipelines_old_centos7/fair_recount_pump/profiles/slurm-flamingo' \
+            --workflow-profile '/mnt/beegfs01/pipelines_old_centos7/fair_recount_pump/profiles/workflow-slurm-flamingo/config.yaml' \
+            -s '/mnt/beegfs01/pipelines_old_centos7/fair_recount_pump/workflow/Snakefile_aggregation.smk'
 ```
 
 ## `config/samples.csv`

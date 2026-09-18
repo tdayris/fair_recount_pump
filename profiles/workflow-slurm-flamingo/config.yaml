@@ -16,19 +16,19 @@ set-resources:
     runtime: attempt * 30
 
   exon_fc_count_unique:
-    mem_mb: min(6000, attempt * 4000)
+    mem_mb: min(12000, attempt * 4000)
     runtime: attempt * 35
 
   exon_fc_count_all:
-    mem_mb: min(6000, attempt * 4000)
+    mem_mb: min(12000, attempt * 5000)
     runtime: attempt * 35
 
   gene_fc_count_unique:
-    mem_mb: min(6000, attempt * 4000)
+    mem_mb: min(12000, attempt * 4000)
     runtime: attempt * 35
 
   gene_fc_count_all:
-    mem_mb: min(6000, attempt * 4000)
+    mem_mb: min(12000, attempt * 5000)
     runtime: attempt * 35
 
   sed_remove_header_gene_id:

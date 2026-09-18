@@ -211,6 +211,7 @@ expected_results: dict[str, list[str]] = {
     "featurecount": featurecount,
     "mapping": mapping,
     "counts_table": "results/raw_aggregated_counts.csv",
+    "aggregate_counts": "results/zscore_aggregated_counts.csv",
 }
 
 
@@ -224,3 +225,6 @@ wildcard_constraints:
 
 def get_targets():
     return expected_results
+
+def get_aggregated_targets():
+    return "results/zscore_aggregated_counts.csv"

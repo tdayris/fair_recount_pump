@@ -76,3 +76,23 @@ rule xan_aggregate_counts:
         "  xan fmt {params.fmt} )"
         "  > {output:q} 2> {log:q} "
 
+rule compute_zscore:
+    input:
+        "results/raw_aggregated_counts.csv",
+    output:
+        "results/zscore_aggregated_counts.csv",
+    threads: 1
+    resources:
+        mem_mb=lambda wildcards, input, attempt: min(attempt * input.size_mb * 2, 50_000),
+        runtime=lambda wildcards, attempt: min(attempt * 35, 120),
+        tmpdir="tmp",
+    log:
+        "logs/compute_zscore.log",
+    benchmark:
+        "benchmark/compute_zscore.tsv",
+    params:
+        extra="",
+    conda:
+        "../envs/aggregation.yaml"
+    shell:
+        "../script/zscore.py"

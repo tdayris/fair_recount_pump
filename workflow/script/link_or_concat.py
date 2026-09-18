@@ -263,7 +263,7 @@ def copy_or_concat(
                     "Source file string is a list separated by "
                     f"`{src_sep=}`. Splitting it into a list."
                 )
-                src: list[str] = src.split(src_sep)
+                src: list[str] = [s.strip("'").strip('"') for s in src.split(src_sep)]
                 src_len = len(src)
         case list():
             src_len = len(src)

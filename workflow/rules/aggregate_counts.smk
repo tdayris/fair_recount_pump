@@ -3,7 +3,7 @@ rule extract_counts_from_fc_count_genes_unique:
         "results/{sample}/{sample}.gene_fc_count_unique.tsv.zst",
     output:
         temp("tmp/extract_counts_from_fc_count_genes_unique/{sample}.counts.tsv"),
-    threads: 1
+    threads: 3
     resources:
         mem_mb=lambda wildcards, attempt: min(attempt * 500, 1500),
         runtime=lambda wildcards, attempt: min(attempt * 15, 60),
@@ -14,32 +14,65 @@ rule extract_counts_from_fc_count_genes_unique:
         "benchmark/extract_counts_from_fc_count_genes_unique/{sample}.tsv",
     params:
         zstd="--decompress --stdout --force --keep",
-        cut="-f1,7",
-        sd=lambda wildcards: f"'tmp/sort/samtools_sort/{sample}.bam' 'counts'"
+        cut="-f7",
+        sd=lambda wildcards: f"'tmp/sort/samtools_sort/' ''",
+    conda:
+        "../envs/aggregation.yaml"
     shell:
         "( zstd {params.zstd} {input:q} | "
         "  cut {params.cut} | "
         "  sd {params.sd} ) > {output:q} 2> {log:q}"
 
 
-rule aggregate_counts:
+rule extract_gene_ids_from_fc_count_genes_unique:
     input:
+        expand("results/{sample}/{sample}.gene_fc_count_unique.tsv.zst", sample=samples_tpl[0],),
+    output:
+        temp("tmp/extract_gene_ids_from_fc_count_genes_unique.tsv"),
+    threads: 1
+    resources:
+        mem_mb=lambda wildcards, attempt: min(attempt * 500, 1500),
+        runtime=lambda wildcards, attempt: min(attempt * 15, 60),
+        tmpdir="tmp",
+    log:
+        "logs/extract_gene_ids_from_fc_count_genes_unique.log",
+    benchmark:
+        "benchmark/extract_gene_ids_from_fc_count_genes_unique.tsv",
+    params:
+        zstd="--decompress --stdout --force --keep",
+        cut="-f1",
+    conda:
+        "../envs/aggregation.yaml"
+    shell:
+        "( zstd {params.zstd} {input:q} | cut {params.cut} ) "
+        "> {output:q} 2> {log:q}"
+
+
+rule xan_aggregate_counts:
+    input:
+        "tmp/extract_gene_ids_from_fc_count_genes_unique.tsv",
         expand(
             "tmp/extract_counts_from_fc_count_genes_unique/{sample}.counts.tsv",
             sample=samples_tpl,
         ),
     output:
-        "results/aggregated_counts.csv",
-    threads: 1
+        "results/raw_aggregated_counts.csv",
+    threads: 2
     resources:
         mem_mb=lambda wildcards, attempt: min(attempt * 10000, 100000),
         runtime=lambda wildcards, attempt: min(attempt * 120, 60 * 24 * 6 - 1),
         tmpdir="tmp",
     log:
-        "logs/aggregated_counts.log",
+        "logs/xan_aggregate_counts.log",
     benchmark:
-        "benchmark/aggregated_counts.tsv",
+        "benchmark/xan_aggregate_counts.tsv",
     params:
-        extra="--full --sorted --delimiter ',' --drop-key right  0",
+        cat_cols="",
+        fmt="--tabs",
+    conda:
+        "../envs/aggregation.yaml"
     shell:
-        "xan join {params.extra} --output {output:q} > {log:q} 2>&1"
+        "( xan cat cols {params.cat_cols} {input} | "
+        "  xan fmt {params.fmt} )"
+        "  > {output:q} 2> {log:q} "
+

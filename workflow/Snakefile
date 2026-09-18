@@ -1,4 +1,5 @@
 include: "rules/common.smk"
+include: "rules/aggregate_counts.smk"
 include: "rules/pump_align.smk"
 include: "rules/pump_bamcount.smk"
 include: "rules/pump_cram_archive.smk"

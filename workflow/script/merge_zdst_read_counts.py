@@ -10,7 +10,6 @@ import pathlib
 import polars
 import pretty_errors
 import rich_argparse
-import sklearn.preprocessing
 import session_info
 import zstandard
 
@@ -41,7 +40,7 @@ def load_zstd_featurecount(
     }
     suffix: str = ""
     for s in extensions:
-        if path.endswith(s):
+        if str(path).endswith(s):
             suffix = s
             break
     else:
@@ -112,7 +111,7 @@ def load_zstd_bamcount(
             break
     else:
         raise ValueError(
-            "Could not find proper file extension for" f" {path} among {extension}"
+            "Could not find proper file extension for" f" {path} among {extensions}"
         )
     sample_name: str = str(path.name)[: -len(suffix)]
     abs_path: str = str(path.resolve())
@@ -139,36 +138,12 @@ def load_zstd_bamcount(
             )
 
     # Compute zscore
-    scaler = sklearn.preprocessing.StandardScaler()
     df = df.with_columns(
-        polars.Series("zscore", scaler.fit_transform(df[["Column3"]].to_numpy())[:, 0])
+        zscore=(
+            (polars.col("Column3").cast(polars.Float64) - polars.col("Column3").mean())
+            / polars.col("Column3").std()
+        )
     )
-    print(df)
-
-    col = "Column1"
-    # Check raw stats in Polars
-    print("Polars stats:")
-    print(df.select(
-        polars.col(col).mean().alias("mean"),
-        polars.col(col).std().alias("std"),
-        polars.col(col).n_unique().alias("n_unique"),
-    ))
-
-    # Prepare for sklearn
-    X = df[[col]].to_numpy()  # shape (n_samples, 1)
-    print("\nNumPy shape:", X.shape)
-    print("NumPy mean, std:", X.mean(), X.std(ddof=1))
-
-    # Scale
-    X_scaled = ( polars.col(col) - polars.col(col).mean() ) / polars.col(col).std()
-
-    print("\nScaled first 10 values:")
-    print(X_scaled.head(20))
-
-    print("\nScaler params:")
-    print("mean_:", scaler.mean_)
-    print("scale_:", scaler.scale_)
-    
 
     # Select index and that column, renaming the integer column
     if keep_gene_names:
@@ -283,13 +258,13 @@ def main() -> None:
 
     # Load all tables, it should take roughly 140Mb per table.
     dfs: list[polars.DataFrame] = [
-        load_zstd_bamcount(
+        load_zstd_featurecount(
             paths[0],
             enumeration=f"1/{len(paths)}",
             keep_gene_names=True,
         )
     ]
-    dfs: list[polars.DataFrame] = dfs + [load_zstd_bamcount(p, "") for p in paths[1:]]
+    dfs: list[polars.DataFrame] = dfs + [load_zstd_featurecount(p, "") for p in paths[1:]]
     logger.debug("Data loaded")
 
     # Merge side-by-side (same row count, same order, different column names)

@@ -11,12 +11,9 @@ retries: 2
 show-failed-logs: true
 benchmark-extended: true
 software-deployment-method:
-  #  - "apptainer"
   - "conda"
 executor: "slurm"
 latency-wait: 5
-conda-prefix: "/mnt/beegfs01/pipelines_old_centos7/fair_recount_pump/conda_shared_install"
-apptainer-prefix: "/mnt/beegfs01/pipelines_old_centos7/fair_recount_pump/singularity_shared_install"
 use-envmodules: true
 default-resources:
   runtime: 60

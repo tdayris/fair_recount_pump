@@ -210,6 +210,7 @@ expected_results: dict[str, list[str]] = {
     "fqchk": ["results/seqtk_fqchk.tsv"],
     "featurecount": featurecount,
     "mapping": mapping,
+    "counts_table": "results/raw_aggregated_counts.csv",
 }
 
 

@@ -83,7 +83,7 @@ rule compute_zscore:
         "results/zscore_aggregated_counts.csv",
     threads: 1
     resources:
-        mem_mb=lambda wildcards, input, attempt: min(attempt * input.size_mb * 2, 50_000),
+        mem_mb=lambda wildcards, input, attempt: min(max(attempt * input.size_mb * 2, 5_000), 50_000),
         runtime=lambda wildcards, attempt: min(attempt * 35, 120),
         tmpdir="tmp",
     log:

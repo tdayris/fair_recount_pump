@@ -68,7 +68,7 @@ rule xan_aggregate_counts:
         "benchmark/xan_aggregate_counts.tsv",
     params:
         cat_cols="",
-        fmt="--tabs",
+        fmt="",
     conda:
         "../envs/aggregation.yaml"
     shell:

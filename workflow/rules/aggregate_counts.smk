@@ -94,5 +94,5 @@ rule compute_zscore:
         extra="",
     conda:
         "../envs/aggregation.yaml"
-    shell:
+    script:
         "../script/zscore.py"
